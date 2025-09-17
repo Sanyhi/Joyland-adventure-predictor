@@ -5,47 +5,12 @@ body {
     padding: 0;
     background: #f0f0f0;
 }
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #ddd;
-    font-weight: bold;
-}
-.countdown {
-    font-size: 1em;
-    color: #333;
-}
-.datetime {
-    font-size: 1em;
-    color: #333;
-}
-.title {
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    margin: 20px 0;
-}
 .container {
     padding: 20px;
     text-align: center;
 }
-.description {
-    display: flex;
-    justify-content: center;
-    gap: 100px;
-    margin-bottom: 60px;
-    margin-top: 40px;
-}
-.left-desc, .right-desc {
-    width: 200px;
-    text-align: center;
-}
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-top: 20px;
+h2 {
+    margin-bottom: 20px;
 }
 table {
     margin: 0 auto;
@@ -59,4 +24,9 @@ td {
 select, input[type=number] {
     width: 100%;
     padding: 5px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 20px;
 }
