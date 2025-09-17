@@ -5,29 +5,38 @@ body {
     padding: 0;
     background: #f0f0f0;
 }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ddd;
+    font-weight: bold;
+}
+.title {
+    text-align: center;
+    flex-grow: 1;
+}
 .container {
     padding: 20px;
     text-align: center;
 }
 .description {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 50px;
     margin-bottom: 20px;
+}
+.left-desc, .right-desc {
+    width: 150px;
+    text-align: center;
 }
 .buttons {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
-select, input[type=number] {
-    display: block;
-    margin: 10px auto;
-    padding: 5px;
-    width: 80%;
-    max-width: 300px;
-}
 button {
     padding: 10px 20px;
-    margin: 10px;
     font-size: 16px;
 }
