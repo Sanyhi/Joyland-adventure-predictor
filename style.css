@@ -23,7 +23,7 @@ body {
 }
 .title {
     text-align: center;
-    font-size: 3em;
+    font-size: 1.5em;
     font-weight: bold;
     margin: 20px 0;
 }
@@ -46,4 +46,17 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     margin-top: 20px;
+}
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+}
+td {
+    padding: 10px;
+    text-align: left;
+}
+select, input[type=number] {
+    width: 100%;
+    padding: 5px;
 }
