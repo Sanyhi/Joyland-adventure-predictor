@@ -13,9 +13,19 @@ body {
     background-color: #ddd;
     font-weight: bold;
 }
+.countdown {
+    font-size: 2em;
+    color: #333;
+}
+.datetime {
+    font-size: 1em;
+    color: #333;
+}
 .title {
     text-align: center;
-    flex-grow: 1;
+    font-size: 3em;
+    font-weight: bold;
+    margin: 20px 0;
 }
 .container {
     padding: 20px;
@@ -28,15 +38,11 @@ body {
     margin-bottom: 20px;
 }
 .left-desc, .right-desc {
-    width: 150px;
+    width: 200px;
     text-align: center;
-}
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
 }
 button {
     padding: 10px 20px;
     font-size: 16px;
+    margin-top: 10px;
 }

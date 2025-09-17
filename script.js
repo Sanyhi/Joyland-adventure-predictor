@@ -8,16 +8,15 @@ function getJoylandEventStatus() {
     const now = new Date();
     const currentWeek = getWeekNumber(now);
 
-    // Find next Friday of an odd week
     let nextEventDate = new Date(now);
-    nextEventDate.setDate(now.getDate() + ((5 - now.getDay() + 7) % 7)); // Next Friday
+    nextEventDate.setDate(now.getDate() + ((5 - now.getDay() + 7) % 7));
     while (getWeekNumber(nextEventDate) % 2 === 0) {
         nextEventDate.setDate(nextEventDate.getDate() + 7);
     }
 
     const eventStart = new Date(nextEventDate);
     const eventEnd = new Date(eventStart);
-    eventEnd.setDate(eventStart.getDate() + 3); // Friday to Monday
+    eventEnd.setDate(eventStart.getDate() + 3);
 
     if (now >= eventStart && now <= eventEnd) {
         const dayNumber = Math.floor((now - eventStart) / (1000 * 60 * 60 * 24)) + 1;
