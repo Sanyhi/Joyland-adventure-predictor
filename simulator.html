@@ -11,32 +11,34 @@
 <body>
   <div class="container">
     <h2>Joyland Adventure Predictor - Simulation Setup</h2>
-    <table>
-      <tr><td>1. Risk Level:</td><td>
-        <select id="risk">
-          <option value="">Choose 1</option>
-          <option value="LR">Low Risk</option>
-          <option value="MR">Medium Risk</option>
-          <option value="HR">High Risk</option>
-        </select>
-      </td></tr>
-      <tr><td>2. Priority:</td><td>
-        <select id="priority">
-          <option value="">Choose 1</option>
-          <option value="Gold">Gold priority</option>
-          <option value="Joyland">Joyland coin priority</option>
-          <option value="300m">300m priority</option>
-          <option value="360m">360m priority</option>
-          <option value="900m">900m priority</option>
-        </select>
-      </td></tr>
-      <tr><td>3. Boss Fight Ranking:</td><td><input type="number" id="bossRank"></td></tr>
-      <tr><td>4. Arena Ranking:</td><td><input type="number" id="arenaRank"></td></tr>
-      <tr><td>5. Boss Fight Damage:</td><td><input type="number" id="bossDmg"></td></tr>
-      <tr><td>6. Lifetime Privilege:</td><td><input type="checkbox" id="privilege"></td></tr>
-      <tr><td>7. Merchant Haggling:</td><td><input type="number" id="merchant"></td></tr>
-      <tr><td>8. Chaos Blitz Amount:</td><td><input type="number" id="chaos"></td></tr>
-    </table>
+    <div class="table-wrapper">
+      <table>
+        <tr><td>1. Risk Level:</td><td>
+          <select id="risk">
+            <option value="">Choose 1</option>
+            <option value="LR">Low Risk</option>
+            <option value="MR">Medium Risk</option>
+            <option value="HR">High Risk</option>
+          </select>
+        </td></tr>
+        <tr><td>2. Priority:</td><td>
+          <select id="priority">
+            <option value="">Choose 1</option>
+            <option value="Gold">Gold priority</option>
+            <option value="Joyland">Joyland coin priority</option>
+            <option value="300m">300m priority</option>
+            <option value="360m">360m priority</option>
+            <option value="900m">900m priority</option>
+          </select>
+        </td></tr>
+        <tr><td>3. Boss Fight Ranking:</td><td><input type="number" id="bossRank"></td></tr>
+        <tr><td>4. Arena Ranking:</td><td><input type="number" id="arenaRank"></td></tr>
+        <tr><td>5. Boss Fight Damage:</td><td><input type="number" id="bossDmg"></td></tr>
+        <tr><td>6. Lifetime Privilege:</td><td><input type="checkbox" id="privilege"></td></tr>
+        <tr><td>7. Merchant Haggling:</td><td><input type="number" id="merchant"></td></tr>
+        <tr><td>8. Chaos Blitz Amount:</td><td><input type="number" id="chaos"></td></tr>
+      </table>
+    </div>
     <button id="confirm" style="display:none" onclick="saveData()">Confirm</button>
     <button id="nextPage" style="display:none" onclick="location.href='predictor.html'">Go to Predictor</button>
     <button onclick="location.href='index.html'">Back</button>
