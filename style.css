@@ -3,60 +3,37 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: #f0f0f0;
+    background-color: #f0f0f0;
 }
 .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+    padding: 10px;
     background-color: #ddd;
-    font-weight: bold;
 }
-.countdown {
-    font-size: 1em;
-    color: #333;
+.dropdown-left, .dropdown-right {
+    padding: 10px;
 }
-.datetime {
-    font-size: 1em;
-    color: #333;
-}
-.title {
+.gif-container {
     text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-    margin: 20px 0;
+    margin: 20px;
 }
-.container {
-    padding: 20px;
+.gif-container img {
+    width: 300px;
+    height: auto;
+}
+.input-section {
     text-align: center;
+    margin: 20px;
 }
-.description {
-    display: flex;
-    justify-content: center;
-    gap: 100px;
-    margin-bottom: 60px;
-    margin-top: 40px;
-}
-.left-desc, .right-desc {
-    width: 200px;
-    text-align: center;
+label, select, input {
+    display: block;
+    margin: 10px auto;
+    font-size: 16px;
 }
 button {
+    display: block;
+    margin: 20px auto;
     padding: 10px 20px;
     font-size: 16px;
-    margin-top: 20px;
-}
-table {
-    margin: 0 auto;
-    border-collapse: collapse;
-    width: 80%;
-}
-td {
-    padding: 10px;
-    text-align: left;
-}
-select, input[type=number] {
-    width: 100%;
-    padding: 5px;
 }
