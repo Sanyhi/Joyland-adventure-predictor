@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyland Predictor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="header">
+        <div class="dropdown-left">
+            <label>Risk Level:</label>
+            <select id="risk">
+                <option value="LR">Low Risk</option>
+                <option value="MR">Medium Risk</option>
+                <option value="HR">High Risk</option>
+            </select>
+        </div>
+        <div class="dropdown-right">
+            <label>Priority:</label>
+            <select id="priority">
+                <option value="Gold">Gold priority</option>
+                <option value="Joyland">Joyland coin priority</option>
+                <option value="300m">300m priority</option>
+                <option value="360m">360m priority</option>
+                <option value="900m">900m priority</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="gif-container">
+        <img id="predictionGif" src="default.gif" alt="Prediction GIF">
+    </div>
+
+    <div class="input-section">
+        <label>Encounter Type:</label>
+        <select id="encounter">
+            <option value="">Choose Encounter</option>
+            <option value="Normal">Normal encounter</option>
+            <option value="Choose1">Choose 1 encounter</option>
+            <option value="Devil">Little devil (puzzle) encounter</option>
+            <option value="Monster">Monster (Axe throw) encounter</option>
+            <option value="GoldChest">Treasure chest (gold)</option>
+            <option value="JackpotChest">Treasure chest (jackpot)</option>
+        </select>
+
+        <div id="multiplierSection" style="display:none">
+            <label>Multiplier:</label>
+            <select id="multiplier">
+                <option value="1x">1x1m</option>
+                <option value="5x">5x1m</option>
+                <option value="10x">10x1m</option>
+                <option value="20x">20x1m</option>
+                <option value="50x">50x1m</option>
+            </select>
+        </div>
+
+        <div id="amountSection" style="display:none">
+            <label>Amount:</label>
+            <input type="number" id="amount">
+        </div>
+    </div>
+
+    <button onclick="location.href='simulator.html'">Back</button>
+</body>
+</html>
