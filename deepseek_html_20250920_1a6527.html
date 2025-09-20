@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyland Adventure Predictor</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .page {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            cursor: pointer;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+        
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-tab {
+            padding: 15px 30px;
+            background: white;
+            border: none;
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            background: #6a5acd;
+            color: white;
+        }
+        
+        /* Landing Page Styles */
+        #landing-page {
+            text-align: center;
+            background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+            color: #2c3e50;
+        }
+        
+        .counter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6a5acd;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-landing {
+            background: #6a5acd;
+            color: white;
+            border: 2px solid transparent;
+            margin: 15px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+        
+        .btn-landing:hover {
+            background: transparent;
+            border-color: #6a5acd;
+            color: #6a5acd;
+        }
+        
+        /* Simulation Page Styles */
+        #simulation-page {
+            background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            border-color: #6a5acd;
+            outline: none;
+        }
+        
+        .slider-container {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .slider {
+            flex: 1;
+            height: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #ddd;
+            outline: none;
+            border-radius: 5px;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #6a5acd;
+            cursor: pointer;
+        }
+        
+        .slider-value {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 600;
+            margin-left: 15px;
+            color: #6a5acd;
+        }
+        
+        .btn-simulation {
+            background: #6a5acd;
+            color: white;
+        }
+        
+        .btn-simulation:hover {
+            background: #5a4fcf;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(106, 90, 205, 0.4);
+        }
+        
+        /* Predictor Page Styles */
+        #predictor-page {
+            background: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        
+        .gif-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .gif-container img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .actions-log {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .action-item {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn-predictor {
+            background: #2c3e50;
+            color: white;
+        }
+        
+        .btn-predictor:hover {
+            background: #1a2530;
+            transform: translateY(-2px);
+        }
+        
+        .btn-special {
+            background: #ff7e5f;
+            color: white;
+            display: none;
+        }
+        
+        .btn-special:hover {
+            background: #feb47b;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .page {
+                padding: 20px;
+            }
+            
+            .counter {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showPage('landing-page')">Landing Page</button>
+            <button class="nav-tab" onclick="showPage('simulation-page')">Simulation</button>
+            <button class="nav-tab" onclick="showPage('predictor-page')">Predictor</button>
+        </div>
+
+        <!-- Landing Page -->
+        <div id="landing-page" class="page active">
+            <h1>Joyland Adventure Predictor</h1>
+            <div class="counter">
+                Next event in: <span id="event-counter">05:12:33</span>
+            </div>
+            <p>Welcome to the Joyland Adventure Predictor! This tool helps you simulate and predict outcomes based on your risk preferences.</p>
+            
+            <div style="margin: 30px 0;">
+                <button class="btn-landing" onclick="showPage('simulation-page')">Start Simulation</button>
+                <button class="btn-landing" onclick="showPage('predictor-page')">Go to Predictor</button>
+            </div>
+            
+            <div style="display: flex; justify-content: space-around; margin-top: 40px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px; margin: 15px; padding: 20px; background: rgba(255, 255, 255, 0.3); border-radius: 12px;">
+                    <h3>Risk Assessment</h3>
+                    <p>Evaluate your risk tolerance and see how it affects your adventure outcomes.</p>
+                </div>
+                <div style="flex: 1; min-width: 250px; margin: 15px; padding: 20px; background: rgba(255, 255, 255, 0.3); border-radius: 12px;">
+                    <h3>Outcome Prediction</h3>
+                    <p>Get predictions based on your selected parameters and historical data.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Simulation Page -->
+        <div id="simulation-page" class="page">
+            <h1>Adventure Simulation</h1>
+            <p>Configure your simulation parameters below. These will be used for prediction calculations.</p>
+            
+            <div class="form-group">
+                <label for="risk-level">Risk Level</label>
+                <select id="risk-level">
+                    <option value="low">Low Risk</option>
+                    <option value="medium" selected>Medium Risk</option>
+                    <option value="high">High Risk</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="preference">Adventure Preference</label>
+                <select id="preference">
+                    <option value="safe">Safe Exploration</option>
+                    <option value="balanced" selected>Balanced Approach</option>
+                    <option value="extreme">Extreme Adventure</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="multiplier">Outcome Multiplier</label>
+                <div class="slider-container">
+                    <input type="range" min="1" max="10" value="3" class="slider" id="multiplier">
+                    <span class="slider-value" id="multiplier-value">3x</span>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="duration">Simulation Duration (days)</label>
+                <input type="number" id="duration" min="1" max="30" value="7">
+            </div>
+            
+            <button class="btn-simulation" onclick="saveSimulationData()">Save Simulation Data</button>
+            <button class="btn-simulation" onclick="showPage('predictor-page')">Go to Predictor</button>
+            <button class="btn-simulation" onclick="showPage('landing-page')">Back to Home</button>
+        </div>
+
+        <!-- Predictor Page -->
+        <div id="predictor-page" class="page">
+            <h1>Adventure Predictor</h1>
+            <p>This page uses your simulation data to predict outcomes and record actions.</p>
+            
+            <div class="card">
+                <h3>Simulation Parameters</h3>
+                <p>Risk Level: <span id="display-risk">Medium</span></p>
+                <p>Preference: <span id="display-preference">Balanced</span></p>
+                
+                <div class="form-group">
+                    <label for="predictor-risk">Adjust Risk Level</label>
+                    <select id="predictor-risk">
+                        <option value="low">Low Risk</option>
+                        <option value="medium" selected>Medium Risk</option>
+                        <option value="high">High Risk</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="predictor-preference">Adjust Preference</label>
+                    <select id="predictor-preference">
+                        <option value="safe">Safe Exploration</option>
+                        <option value="balanced" selected>Balanced Approach</option>
+                        <option value="extreme">Extreme Adventure</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Encounter Simulation</h3>
+                <div class="form-group">
+                    <label for="encounter-type">Select Encounter Type</label>
+                    <select id="encounter-type">
+                        <option value="treasure">Treasure Find</option>
+                        <option value="creature">Creature Encounter</option>
+                        <option value="puzzle">Puzzle Challenge</option>
+                        <option value="weather">Weather Event</option>
+                    </select>
+                </div>
+                
+                <div class="gif-container">
+                    <img id="encounter-gif" src="https://via.placeholder.com/400x200?text=Encounter+Visualization" alt="Encounter visualization">
+                </div>
+                
+                <p>Encounter Value: <span id="encounter-value">5x1m</span></p>
+                
+                <button class="btn-predictor" onclick="recordAction()">Record Action</button>
+                <button class="btn-special" id="special-btn" onclick="specialAction()">Special Action (10+ recorded)</button>
+            </div>
+            
+            <div class="actions-log">
+                <h3>Action Log</h3>
+                <div id="action-list">
+                    <p>No actions recorded yet. Record actions to see them here.</p>
+                </div>
+            </div>
+            
+            <button class="btn-predictor" onclick="calculatePrediction()">Calculate Prediction</button>
+            <button class="btn-predictor" onclick="showPage('simulation-page')">Back to Simulation</button>
+            <button class="btn-predictor" onclick="showPage('landing-page')">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            // Activate the corresponding tab
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                if (tab.textContent.toLowerCase().includes(pageId.split('-')[0])) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update predictor page with simulation data
+            if (pageId === 'predictor-page') {
+                updatePredictorPage();
+            }
+        }
+        
+        // Update event counter
+        function updateEventCounter() {
+            const now = new Date();
+            const nextEvent = new Date();
+            nextEvent.setHours(24, 0, 0, 0); // Next midnight
+            
+            const diff = nextEvent - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('event-counter').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // Update slider value display
+        const multiplierSlider = document.getElementById('multiplier');
+        const multiplierValue = document.getElementById('multiplier-value');
+        
+        multiplierSlider.addEventListener('input', function() {
+            multiplierValue.textContent = this.value + 'x';
+        });
+        
+        // Save simulation data
+        function saveSimulationData() {
+            const riskLevel = document.getElementById('risk-level').value;
+            const preference = document.getElementById('preference').value;
+            const multiplier = document.getElementById('multiplier').value;
+            const duration = document.getElementById('duration').value;
+            
+            // In a real application, you would save this to a database
+            // For this demo, we'll store in localStorage
+            localStorage.setItem('simulationData', JSON.stringify({
+                riskLevel,
+                preference,
+                multiplier,
+                duration
+            }));
+            
+            alert('Simulation data saved successfully!');
+        }
+        
+        // Update predictor page with simulation data
+        function updatePredictorPage() {
+            const savedData = localStorage.getItem('simulationData');
+            
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                
+                document.getElementById('display-risk').textContent = 
+                    data.riskLevel.charAt(0).toUpperCase() + data.riskLevel.slice(1);
+                document.getElementById('display-preference').textContent = 
+                    data.preference.charAt(0).toUpperCase() + data.preference.slice(1);
+                
+                document.getElementById('predictor-risk').value = data.riskLevel;
+                document.getElementById('predictor-preference').value = data.preference;
+            }
+        }
+        
+        // Record action
+        let actionCount = 0;
+        
+        function recordAction() {
+            actionCount++;
+            const encounterType = document.getElementById('encounter-type').value;
+            const encounterValue = `${actionCount}x1m`;
+            
+            document.getElementById('encounter-value').textContent = encounterValue;
+            
+            // Add to action log
+            const actionList = document.getElementById('action-list');
+            
+            if (actionList.querySelector('p')) {
+                actionList.innerHTML = '';
+            }
+            
+            const actionItem = document.createElement('div');
+            actionItem.className = 'action-item';
+            actionItem.textContent = `Action ${actionCount}: ${encounterType} - ${encounterValue}`;
+            actionList.appendChild(actionItem);
+            
+            // Show special button after 10 actions
+            if (actionCount >= 10) {
+                document.getElementById('special-btn').style.display = 'inline-block';
+            }
+            
+            // Change GIF based on encounter type
+            const gifMap = {
+                treasure: 'https://via.placeholder.com/400x200/4CAF50/FFFFFF?text=Treasure+Found',
+                creature: 'https://via.placeholder.com/400x200/FF5722/FFFFFF?text=Creature+Encounter',
+                puzzle: 'https://via.placeholder.com/400x200/2196F3/FFFFFF?text=Puzzle+Solved',
+                weather: 'https://via.placeholder.com/400x200/9C27B0/FFFFFF?text=Weather+Event'
+            };
+            
+            document.getElementById('encounter-gif').src = gifMap[encounterType] || 
+                'https://via.placeholder.com/400x200?text=Encounter+Visualization';
+        }
+        
+        // Special action
+        function specialAction() {
+            alert('Special action activated! You have recorded 10 or more actions.');
+        }
+        
+        // Calculate prediction
+        function calculatePrediction() {
+            const risk = document.getElementById('predictor-risk').value;
+            const preference = document.getElementById('predictor-preference').value;
+            const encounterValue = document.getElementById('encounter-value').textContent;
+            
+            // Simple prediction algorithm
+            const riskFactors = {
+                low: 0.7,
+                medium: 1.0,
+                high: 1.5
+            };
+            
+            const preferenceFactors = {
+                safe: 0.8,
+                balanced: 1.0,
+                extreme: 1.3
+            };
+            
+            const riskFactor = riskFactors[risk] || 1.0;
+            const preferenceFactor = preferenceFactors[preference] || 1.0;
+            
+            // Extract multiplier from encounter value (e.g., "5x1m" -> 5)
+            const valueMultiplier = parseInt(encounterValue) || 1;
+            
+            // Calculate prediction score
+            const predictionScore = (riskFactor * preferenceFactor * valueMultiplier).toFixed(2);
+            
+            alert(`Prediction Calculation Complete!\n\nRisk: ${risk}\nPreference: ${preference}\nEncounter Value: ${encounterValue}\n\nPrediction Score: ${predictionScore}`);
+        }
+        
+        // Initialize the application
+        setInterval(updateEventCounter, 1000);
+        updateEventCounter();
+        
+        // Load any saved simulation data
+        window.addEventListener('load', function() {
+            const savedData = localStorage.getItem('simulationData');
+            if (savedData) {
+                const data = JSON.parse(savedData);
+                document.getElementById('risk-level').value = data.riskLevel;
+                document.getElementById('preference').value = data.preference;
+                document.getElementById('multiplier').value = data.multiplier;
+                document.getElementById('multiplier-value').textContent = data.multiplier + 'x';
+                document.getElementById('duration').value = data.duration;
+            }
+        });
+    </script>
+</body>
+</html>
