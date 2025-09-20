@@ -43,6 +43,33 @@
     </select>
     <input type="number" id="amount" placeholder="Amount" style="display:none">
   </div>
+<!-- Update the risk level and preference sections to use dropdowns -->
+<div class="form-group">
+    <label for="predictor-risk">Risk Level</label>
+    <select id="predictor-risk">
+        <option value="low">Low Risk</option>
+        <option value="medium" selected>Medium Risk</option>
+        <option value="high">High Risk</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="predictor-preference">Preference</label>
+    <select id="predictor-preference">
+        <option value="safe">Safe Exploration</option>
+        <option value="balanced" selected>Balanced Approach</option>
+        <option value="extreme">Extreme Adventure</option>
+    </select>
+</div>
+
+<!-- Add the record action button -->
+<button onclick="recordAction()">Record Action</button>
+
+<!-- Add the special button (initially hidden) -->
+<button id="special-btn" style="display: none;" onclick="specialAction()">Special Action</button>
+
+<!-- Add action log -->
+<div id="action-list"></div>
   <button onclick="location.href='simulator.html'">Back</button>
 </body>
 </html>
