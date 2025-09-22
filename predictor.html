@@ -10,13 +10,23 @@
 </head>
 <body>
   <div class="header">
-    <div class="risk-display">
+    <div class="dropdown-left">
       <label>Risk Level:</label>
-      <span id="riskValue"></span>
+      <select id="risk">
+        <option value="LR">Low Risk</option>
+        <option value="MR">Medium Risk</option>
+        <option value="HR">High Risk</option>
+      </select>
     </div>
-    <div class="priority-display">
+    <div class="dropdown-right">
       <label>Priority:</label>
-      <span id="priorityValue"></span>
+      <select id="priority">
+        <option value="Gold">Gold priority</option>
+        <option value="Joyland">Joyland coin priority</option>
+        <option value="300m">300m priority</option>
+        <option value="360m">360m priority</option>
+        <option value="900m">900m priority</option>
+      </select>
     </div>
   </div>
   <div class="title">Joyland Adventure Predictor Simulator</div>
@@ -43,6 +53,9 @@
     </select>
     <input type="number" id="amount" placeholder="Amount" style="display:none">
   </div>
-  <button onclick="location.href='simulator.html'">Back</button>
+  <div class="button-line">
+    <button onclick="location.href='simulator.html'">Back</button>
+    <button onclick="recordEncounter()">Record</button>
+  </div>
 </body>
 </html>

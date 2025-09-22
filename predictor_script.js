@@ -1,9 +1,26 @@
 
-window.onload = () => {
-  const data = JSON.parse(localStorage.getItem('simulatorData')) || {};
-  document.getElementById('riskValue').textContent = data.risk || 'N/A';
-  document.getElementById('priorityValue').textContent = data.priority || 'N/A';
+function recordEncounter() {
+  const encounter = document.getElementById('encounter').value;
+  const multiplier = document.getElementById('multiplier').value;
+  const amount = document.getElementById('amount').value;
+  const risk = document.getElementById('risk').value;
+  const priority = document.getElementById('priority').value;
 
+  const record = {
+    risk,
+    priority,
+    encounter,
+    multiplier,
+    amount
+  };
+
+  let records = JSON.parse(localStorage.getItem('encounterRecords')) || [];
+  records.push(record);
+  localStorage.setItem('encounterRecords', JSON.stringify(records));
+  alert('Encounter recorded successfully.');
+}
+
+window.onload = () => {
   document.getElementById("encounter").addEventListener("change", function() {
     const value = this.value;
     const multiplier = document.getElementById("multiplier");
