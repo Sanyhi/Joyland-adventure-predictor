@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predictor Simulation</title>
+  <link rel="stylesheet" href="predictor_style.css">
+</head>
+<body>
+  <div class="header">
+    <div class="dropdown-left">
+      Risk Level:
+      <select id="risk">
+        <option>Low Risk</option>
+        <option>Medium Risk</option>
+        <option>High Risk</option>
+      </select>
+    </div>
+    <div class="dropdown-right">
+      Priority:
+      <select id="priority">
+        <option>Gold priority</option>
+        <option>Joyland coin priority</option>
+        <option>300m priority</option>
+        <option>360m priority</option>
+        <option>900m priority</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="title">Joyland Adventure Predictor Simulator</div>
+
+  <div class="gif-container">
+    <img id="predictionGif" src="placeholder.gif" alt="Prediction GIF">
+  </div>
+
+  <div class="input-line">
+    <select id="encounter">
+      <option>Normal encounter</option>
+      <option>Choose 1 encounter</option>
+      <option>Little devil (puzzle) encounter</option>
+      <option>Monster (Axe throw) encounter</option>
+      <option>Treasure chest (gold)</option>
+      <option>Treasure chest (jackpot)</option>
+    </select>
+
+    <select id="multiplier" style="display:none;">
+      <option>1x1m</option>
+      <option>5x1m</option>
+      <option>10x1m</option>
+      <option>20x1m</option>
+      <option>50x1m</option>
+    </select>
+
+    <input type="number" id="amount" placeholder="Amount" style="display:none;">
+  </div>
+
+  <div class="button-line">
+    <button onclick="goBack()">Back</button>
+    <button onclick="recordEncounter()">Record</button>
+  </div>
+
+  <div class="summary">
+    <p id="patternInfo">Pattern: —</p>
+    <p id="nextSymbol">Next: —</p>
+    <p id="evInfo">EV: — JC</p>
+    <p id="suggestion">Suggestion: —</p>
+  </div>
+
+  <script src="predictor_script.js"></script>
+</body>
+</html>
