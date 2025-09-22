@@ -1,401 +1,48 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joyland Adventure Predictor</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .page {
-            display: none;
-            padding: 30px;
-        }
-        
-        .active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .nav-tabs {
-            display: flex;
-            background: #6a5acd;
-        }
-        
-        .nav-tab {
-            padding: 15px 25px;
-            background: #6a5acd;
-            color: white;
-            border: none;
-            font-weight: 600;
-            flex: 1;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-tab.active {
-            background: #5a4fcf;
-        }
-        
-        h1, h2, h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-        
-        button {
-            cursor: pointer;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin: 10px 5px;
-        }
-        
-        .btn-primary {
-            background: #6a5acd;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #5a4fcf;
-        }
-        
-        .btn-special {
-            background: #ff7e5f;
-            color: white;
-            display: none;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        
-        .card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border-left: 4px solid #6a5acd;
-        }
-        
-        .actions-log {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .action-item {
-            padding: 8px 12px;
-            margin-bottom: 8px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-        
-        .hidden {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joyland Predictor Simulator</title>
+  <link rel="stylesheet" href="predictor_style.css">
+  <script src="predictor_script.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <div class="nav-tabs">
-            <button class="nav-tab active" onclick="showPage('landing-page')">Landing</button>
-            <button class="nav-tab" onclick="showPage('simulation-page')">Simulation</button>
-            <button class="nav-tab" onclick="showPage('predictor-page')">Predictor</button>
-        </div>
-
-        <!-- Landing Page -->
-        <div id="landing-page" class="page active">
-            <h1>Joyland Adventure Predictor</h1>
-            <div class="card">
-                <h3>Next Event Countdown</h3>
-                <p id="event-counter">05:12:33</p>
-            </div>
-            
-            <p>Welcome to the Joyland Adventure Predictor! Configure your simulation and predict outcomes.</p>
-            
-            <div style="margin: 30px 0;">
-                <button class="btn-primary" onclick="showPage('simulation-page')">Start Simulation</button>
-                <button class="btn-primary" onclick="showPage('predictor-page')">Go to Predictor</button>
-            </div>
-        </div>
-
-        <!-- Simulation Page -->
-        <div id="simulation-page" class="page">
-            <h1>Adventure Simulation</h1>
-            <p>Configure your simulation parameters below.</p>
-            
-            <div class="form-group">
-                <label for="risk-level">Risk Level</label>
-                <select id="risk-level">
-                    <option value="low">Low Risk</option>
-                    <option value="medium" selected>Medium Risk</option>
-                    <option value="high">High Risk</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="preference">Adventure Preference</label>
-                <select id="preference">
-                    <option value="safe">Safe Exploration</option>
-                    <option value="balanced" selected>Balanced Approach</option>
-                    <option value="extreme">Extreme Adventure</option>
-                </select>
-            </div>
-            
-            <button class="btn-primary" onclick="saveSimulationData()">Save Simulation Data</button>
-            <button class="btn-primary" onclick="showPage('predictor-page')">Go to Predictor</button>
-            <button class="btn-primary" onclick="showPage('landing-page')">Back to Home</button>
-        </div>
-
-        <!-- Predictor Page -->
-        <div id="predictor-page" class="page">
-            <h1>Adventure Predictor</h1>
-            <p>This page uses your simulation data to predict outcomes and record actions.</p>
-            
-            <div class="card">
-                <h3>Simulation Parameters</h3>
-                <p>Risk Level: <span id="display-risk">Medium</span></p>
-                <p>Preference: <span id="display-preference">Balanced</span></p>
-                
-                <div class="form-group">
-                    <label for="predictor-risk">Adjust Risk Level</label>
-                    <select id="predictor-risk">
-                        <option value="low">Low Risk</option>
-                        <option value="medium" selected>Medium Risk</option>
-                        <option value="high">High Risk</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="predictor-preference">Adjust Preference</label>
-                    <select id="predictor-preference">
-                        <option value="safe">Safe Exploration</option>
-                        <option value="balanced" selected>Balanced Approach</option>
-                        <option value="extreme">Extreme Adventure</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3>Encounter Simulation</h3>
-                <div class="form-group">
-                    <label for="encounter-type">Select Encounter Type</label>
-                    <select id="encounter-type">
-                        <option value="treasure">Treasure Find</option>
-                        <option value="creature">Creature Encounter</option>
-                        <option value="puzzle">Puzzle Challenge</option>
-                        <option value="weather">Weather Event</option>
-                    </select>
-                </div>
-                
-                <p>Encounter Value: <span id="encounter-value">0x1m</span></p>
-                
-                <button class="btn-primary" onclick="recordAction()">Record Action</button>
-                
-                <div id="special-dropdown-container" class="hidden">
-                    <div class="form-group">
-                        <label for="special-dropdown">Special Action (Available after 10 actions)</label>
-                        <select id="special-dropdown">
-                            <option value="boost">Performance Boost</option>
-                            <option value="shield">Protective Shield</option>
-                            <option value="multiplier">Double Rewards</option>
-                        </select>
-                    </div>
-                    <button class="btn-special" onclick="applySpecialAction()">Apply Special Action</button>
-                </div>
-            </div>
-            
-            <div class="actions-log">
-                <h3>Action Log</h3>
-                <div id="action-list">
-                    <p>No actions recorded yet. Record actions to see them here.</p>
-                </div>
-            </div>
-            
-            <button class="btn-primary" onclick="calculatePrediction()">Calculate Prediction</button>
-            <button class="btn-primary" onclick="showPage('simulation-page')">Back to Simulation</button>
-            <button class="btn-primary" onclick="showPage('landing-page')">Back to Home</button>
-        </div>
+  <div class="header">
+    <div class="risk-display">
+      <label>Risk Level:</label>
+      <span id="riskValue"></span>
     </div>
-
-    <script>
-        // Page Navigation
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            document.getElementById(pageId).classList.add('active');
-            
-            // Activate the corresponding tab
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                if (tab.textContent.toLowerCase().includes(pageId.split('-')[0])) {
-                    tab.classList.add('active');
-                }
-            });
-            
-            // Update predictor page with simulation data
-            if (pageId === 'predictor-page') {
-                updatePredictorPage();
-            }
-        }
-        
-        // Update event counter
-        function updateEventCounter() {
-            const now = new Date();
-            const nextEvent = new Date();
-            nextEvent.setHours(24, 0, 0, 0); // Next midnight
-            
-            const diff = nextEvent - now;
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('event-counter').textContent = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-        
-        // Save simulation data
-        function saveSimulationData() {
-            const riskLevel = document.getElementById('risk-level').value;
-            const preference = document.getElementById('preference').value;
-            
-            // Save to localStorage
-            localStorage.setItem('simulationData', JSON.stringify({
-                riskLevel,
-                preference
-            }));
-            
-            alert('Simulation data saved successfully!');
-        }
-        
-        // Update predictor page with simulation data
-        function updatePredictorPage() {
-            const savedData = localStorage.getItem('simulationData');
-            
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                
-                document.getElementById('display-risk').textContent = 
-                    data.riskLevel.charAt(0).toUpperCase() + data.riskLevel.slice(1);
-                document.getElementById('display-preference').textContent = 
-                    data.preference.charAt(0).toUpperCase() + data.preference.slice(1);
-                
-                document.getElementById('predictor-risk').value = data.riskLevel;
-                document.getElementById('predictor-preference').value = data.preference;
-            }
-        }
-        
-        // Record action
-        let actionCount = 0;
-        
-        function recordAction() {
-            actionCount++;
-            const encounterType = document.getElementById('encounter-type').value;
-            const encounterValue = `${actionCount}x1m`;
-            
-            document.getElementById('encounter-value').textContent = encounterValue;
-            
-            // Add to action log
-            const actionList = document.getElementById('action-list');
-            
-            if (actionList.querySelector('p')) {
-                actionList.innerHTML = '';
-            }
-            
-            const actionItem = document.createElement('div');
-            actionItem.className = 'action-item';
-            actionItem.textContent = `Action ${actionCount}: ${encounterType} - ${encounterValue}`;
-            actionList.appendChild(actionItem);
-            
-            // Show special dropdown after 10 actions
-            if (actionCount >= 10) {
-                document.getElementById('special-dropdown-container').classList.remove('hidden');
-            }
-        }
-        
-        // Apply special action
-        function applySpecialAction() {
-            const specialAction = document.getElementById('special-dropdown').value;
-            alert(`Special action applied: ${specialAction}`);
-        }
-        
-        // Calculate prediction
-        function calculatePrediction() {
-            const risk = document.getElementById('predictor-risk').value;
-            const preference = document.getElementById('predictor-preference').value;
-            const encounterValue = document.getElementById('encounter-value').textContent;
-            
-            alert(`Prediction Calculation Complete!\n\nRisk: ${risk}\nPreference: ${preference}\nEncounter Value: ${encounterValue}`);
-        }
-        
-        // Initialize the application
-        setInterval(updateEventCounter, 1000);
-        updateEventCounter();
-        
-        // Load any saved simulation data
-        window.addEventListener('load', function() {
-            const savedData = localStorage.getItem('simulationData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                document.getElementById('risk-level').value = data.riskLevel;
-                document.getElementById('preference').value = data.preference;
-            }
-        });
-    </script>
+    <div class="priority-display">
+      <label>Priority:</label>
+      <span id="priorityValue"></span>
+    </div>
+  </div>
+  <div class="title">Joyland Adventure Predictor Simulator</div>
+  <div class="gif-container">
+    <img id="predictionGif" src="default.gif" alt="Prediction GIF">
+  </div>
+  <div class="input-line">
+    <label>Encounter:</label>
+    <select id="encounter">
+      <option value="">Choose Encounter</option>
+      <option value="Normal">Normal encounter</option>
+      <option value="Choose1">Choose 1 encounter</option>
+      <option value="Devil">Little devil (puzzle)</option>
+      <option value="Monster">Monster (Axe throw)</option>
+      <option value="GoldChest">Treasure chest (gold)</option>
+      <option value="JackpotChest">Treasure chest (jackpot)</option>
+    </select>
+    <select id="multiplier" style="display:none">
+      <option value="1x">1x1m</option>
+      <option value="5x">5x1m</option>
+      <option value="10x">10x1m</option>
+      <option value="20x">20x1m</option>
+      <option value="50x">50x1m</option>
+    </select>
+    <input type="number" id="amount" placeholder="Amount" style="display:none">
+  </div>
+  <button onclick="location.href='simulator.html'">Back</button>
 </body>
 </html>
