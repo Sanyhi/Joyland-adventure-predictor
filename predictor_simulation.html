@@ -1,47 +1,93 @@
-<!-- Top: Risk Level and Priority dropdowns -->
-<select id="riskLevel"> ... </select>
-<select id="priority"> ... </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Joyland Adventure Predictor Simulator</title>
+  css/predictor_style.css
+  <script src="js/predictor_script_simulation</head>
+<body>
+  <div class="predictor-container">
+    <!-- Top: Risk Level and Priority -->
+    <div class="predictor-header">
+      <div class="predictor-dropdown">
+        <label for="riskLevel">Risk Level:</label>
+        <select id="riskLevel">
+          <option>Low Risk</option>
+          <option>Medium Risk</option>
+          <option>High Risk</option>
+        </select>
+      </div>
+      <div class="predictor-dropdown">
+        <label for="priority">Priority:</label>
+        <select id="priority">
+          <option>Gold priority</option>
+          <option>Joyland coin priority</option>
+          <option>300m priority</option>
+          <option>360m priority</option>
+          <option>900m priority</option>
+        </select>
+      </div>
+    </div>
 
-<!-- Title -->
-<h1>Joyland Adventure Predictor Simulator</h1>
+    <!-- Title -->
+    <h1 class="predictor-title">Joyland Adventure Predictor Simulator</h1>
 
-<!-- Centered GIF -->
-<img id="predictionGif" src="uncertain.gif" alt="Prediction" style="display:block;margin:auto;width:120pxion>Choose 1 encounter</option>
-  <option>Little devil (puzzle) encounter</option>
-  <option>Monster (Axe throw) encounter</option>
-  <option>Treasure chest (gold)</option>
-  <option>Treasure chest (jackpot)</option>
-</select>
-<select id="multiplier" style="display:none;">
-  <option>1x1m</option>
-  <option>5x1m</option>
-  <option>10x1m</option>
-  <option>20x1m</option>
-  <option>50x1m</option>
-</select>
-<input id="amount" type="number" placeholder="Amount" style="display:none;width:80px;">
+    <!-- Centered GIF -->
+    <div class="predictor-gif">
+      uncertain.gif
+    </div>
 
-<!-- Buttons -->
-<button onclick="recordEncounter()">Record</button>
-<button onclick="window.location.href='simulator.html'->
-<div id="patternInfo"></div>
-<div id="nextSymbol"></div>
-<div id="evInfo"></div>
-<div id="suggestion"></div>
+    <!-- Input line -->
+    <div class="predictor-inputs">
+      <label for="encounterType">Encounter:</label>
+      <select id="encounterType">
+        <option>Normal encounter</option>
+        <option>Choose 1 encounter</option>
+        <option>Little devil (puzzle) encounter</option>
+        <option>Monster (Axe throw) encounter</option>
+        <option>Treasure chest (gold)</option>
+        <option>Treasure chest (jackpot)</option>
+      </select>
+      <select id="multiplier" style="display:none;">
+        <option>1x1m</option>
+        <option>5x1m</option>
+        <option>10x1m</option>
+        <option>20x1m</option>
+        <option>50x1m</option>
+      </select>
+      <input id="amount" type="number" placeholder="Amount" style="display:none;width:80px;">
+    </div>
 
-<!-- Show summary checkbox -->
-<div style="text-align:center;margin-top:20px;">
-  <input type="checkbox" id="showSummary">
-  <label for="showSummary" style="display:inline-block;max-width:300px;line-height:1.2;">
-    Do you have a session saved already?<br>
-    (Check to view/import/export your session data)
-  </label>
-</div>
+    <!-- Buttons -->
+    <div class="predictor-buttons">
+      <buttonor.htmlBack</button>
+      <button onclick="recordEncounter()">Record</button>
+    </div>
 
-<!-- Summary/Import/Export section (hidden by default) -->
-<div id="summarySection" style="display:none;text-align:center;">
-  <div id="summaryOutput" style="margin:10px 0;"></div>
-  <button onclick="exportData()">Export Data</button>
-  <textarea id="importArea" placeholder="Paste JSON here" style="width:90%;height:60px;"></textarea>
-  <button onclick="importData()">Import Data</button>
-</div>
+    <!-- Prediction summary -->
+    <div class="predictor-summary">
+      <div id="patternInfo"></div>
+      <div id="nextSymbol"></div>
+      <div id="evInfo"></div>
+      <div id="suggestion"></div>
+    </div>
+
+    <!-- Show summary checkbox -->
+    <div class="predictor-summary-toggle" style="text-align:center;margin-top:20px;">
+      <input type="checkbox" id="showSummary">
+      <label for="showSummary" style="display:inline-block;max-width:300px;line-height:1.2;">
+        Do you have a session saved already?<br>
+        (Check to view/import/export your session data)
+      </label>
+    </div>
+
+    <!-- Summary/Import/Export section (hidden by default) -->
+    <div id="summarySection" style="display:none;text-align:center;">
+      <div id="summaryOutput" style="margin:10px 0;"></div>
+      <button onclick="exportData()">Export Data</button>
+      <textarea id="importArea" placeholder="Paste JSON here" style="width:90%;height:60px;"></textarea>
+      <button onclick="importData()">Import Data</button>
+    </div>
+  </div>
+</body>
+</html>
