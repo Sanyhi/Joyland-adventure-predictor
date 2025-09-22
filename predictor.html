@@ -4,58 +4,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joyland Predictor Simulator</title>
-  <link rel="stylesheet" href="predictor_style.css">
-  <script src="predictor_script.js" defer></script>
+  <title>Joyland Adventure Predictor Simulator</title>
+  <link rel="stylesheet" href="css/predictor_style.css">
 </head>
 <body>
   <div class="header">
-    <div class="dropdown-left">
+    <div class="left">
       <label>Risk Level:</label>
-      <select id="risk">
-        <option value="LR">Low Risk</option>
-        <option value="MR">Medium Risk</option>
-        <option value="HR">High Risk</option>
+      <select id="riskLevel">
+        <option>Low Risk</option>
+        <option>Medium Risk</option>
+        <option>High Risk</option>
       </select>
     </div>
-    <div class="dropdown-right">
+    <div class="right">
       <label>Priority:</label>
       <select id="priority">
-        <option value="Gold">Gold priority</option>
-        <option value="Joyland">Joyland coin priority</option>
-        <option value="300m">300m priority</option>
-        <option value="360m">360m priority</option>
-        <option value="900m">900m priority</option>
+        <option>Gold</option>
+        <option>Joyland coin</option>
+        <option>300m</option>
+        <option>360m</option>
+        <option>900m</option>
       </select>
     </div>
   </div>
-  <div class="title">Joyland Adventure Predictor Simulator</div>
+
+  <h1 class="title">Joyland Adventure Predictor Simulator</h1>
+
   <div class="gif-container">
-    <img id="predictionGif" src="default.gif" alt="Prediction GIF">
+    <img src="placeholder.gif" alt="Prediction GIF" id="predictionGif">
   </div>
+
   <div class="input-line">
-    <label>Encounter:</label>
-    <select id="encounter">
-      <option value="">Choose Encounter</option>
-      <option value="Normal">Normal encounter</option>
-      <option value="Choose1">Choose 1 encounter</option>
-      <option value="Devil">Little devil (puzzle)</option>
-      <option value="Monster">Monster (Axe throw)</option>
-      <option value="GoldChest">Treasure chest (gold)</option>
-      <option value="JackpotChest">Treasure chest (jackpot)</option>
+    <select id="encounterType">
+      <option>Normal encounter</option>
+      <option>Choose 1 encounter</option>
+      <option>Little devil (puzzle)</option>
+      <option>Monster (Axe throw)</option>
+      <option>Treasure chest (gold)</option>
+      <option>Treasure chest (jackpot)</option>
     </select>
-    <select id="multiplier" style="display:none">
-      <option value="1x">1x1m</option>
-      <option value="5x">5x1m</option>
-      <option value="10x">10x1m</option>
-      <option value="20x">20x1m</option>
-      <option value="50x">50x1m</option>
+
+    <select id="multiplier" style="display:none;">
+      <option>1x1m</option>
+      <option>5x1m</option>
+      <option>10x1m</option>
+      <option>20x1m</option>
+      <option>50x1m</option>
     </select>
-    <input type="number" id="amount" placeholder="Amount" style="display:none">
-  </div>
-  <div class="button-line">
-    <button onclick="location.href='simulator.html'">Back</button>
+
+    <input type="number" id="amount" placeholder="Amount" style="display:none;">
+
     <button onclick="recordEncounter()">Record</button>
+    <button onclick="goBack()">Back</button>
   </div>
+
+  <div class="summary">
+    <h2>Summary</h2>
+    <pre id="summaryOutput"></pre>
+    <button onclick="exportToClipboard()">Export</button>
+    <textarea id="importArea" placeholder="Paste JSON here"></textarea>
+    <button onclick="importFromText()">Import</button>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/predictor_script.js"></script>
 </body>
 </html>
