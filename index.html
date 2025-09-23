@@ -21,7 +21,6 @@
     }
   </style>
   <script>
-    // Countdown to next Joyland event (odd weeks, Fri-Mon)
     function updateCountdown() {
       const now = new Date();
       const weekNum = Math.ceil(((now - new Date(now.getFullYear(),0,1)) / 86400000 + new Date(now.getFullYear(),0,1).getDay()+1)/7);
