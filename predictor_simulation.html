@@ -3,67 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <title>Joyland Adventure Predictor Simulator</title>
-  css/predictor_style.css
-  js/predictor_script_simulation.js</script>
-</head>
+  predictor_style.css
+  <script src="predictor_script_simulation.jsead>
 <body>
-  <div class="predictor-container">
-    <div class="predictor-header">
-      <div class="predictor-dropdown">
-        <label for="riskLevel">Risk Level:</label>
-        <select id="riskLevel">
-          <option>Low Risk</option>
-          <option>Medium Risk</option>
-          <option>High Risk</option>
-        </select>
-      </div>
-      <div class="predictor-dropdown">
-        <label for="priority">Priority:</label>
-        <select id="priority">
-          <option>Gold priority</option>
-          <option>Joyland coin priority</option>
-          <option>300m priority</option>
-          <option>360m priority</option>
-          <option>900m priority</option>
-        </select>
-      </div>
-    </div>
-
-    <h1 class="predictor-title">Joyland Adventure Predictor Simulator</h1>
-
-    <div class="predictor-gif">
-      <img id="predictionGif" src=" <div class="predictor-inputs">
-      <label for="encounterType">Encounter:</label>
-      <select id="encounterType">
-        <option>Normal encounter</option>
-        <option>Choose 1 encounter</option>
-        <option>Little devil (puzzle) encounter</option>
-        <option>Monster (Axe throw) encounter</option>
-        <option>Treasure chest (gold)</option>
-        <option>Treasure chest (jackpot)</option>
+  <div class="header">
+    <div class="dropdown-left">
+      Risk Level:
+      <select id="riskLevel">
+        <option>Low Risk</option>
+        <option>Medium Risk</option>
+        <option>High Risk</option>
       </select>
-      <select id="multiplier" style="display:none;">
-        <option>1x1m</option>
-        <option>5x1m</option>
-        <option>10x1m</option>
-        <option>20x1m</option>
-        <option>50x1m</option>
+    </div>
+    <div class="dropdown-right">
+      Priority:
+      <select id="priority">
+        <option>Gold priority</option>
+        <option>Joyland coin priority</option>
+        <option>300m priority</option>
+        <option>360m priority</option>
+        <option>900m priority</option>
       </select>
-      <input id="amount" type="number" placeholder="Amount" style="display:none;width:80px;">
     </div>
+  </div>
 
-    <div class="predictor-buttons">
-      <button onclick="windowton>
-      <button onclick="recordEncounter()">Record</button>
-    </div>
+  <div class="title">Joyland Adventure Predictor Simulator</div>
 
-    <div class="predictor-summary">
-      <div id="patternInfo"></div>
-      <div id="nextSymbol"></div>
-      <div id="evInfo"></div>
-      <div id="suggestion"></div>
-      <div id="gcPower"></div>
-    </div>
+  <div class="gif-container">
+    uncertain.gif
+  </div>
+
+  <div class="input-line">
+    <label for="encounterType">Encounter:</label>
+    <select id="encounterType">
+      <option>Normal encounter</option>
+      <option>Choose 1 encounter</option>
+      <option>Little devil (puzzle) encounter</option>
+      <option>Monster (Axe throw) encounter</option>
+      <option>Treasure chest (gold)</option>
+      <option>Treasure chest (jackpot)</option>
+    </select>
+    <select id="multiplier" style="display:none;">
+      <option>1x1m</option>
+      <option>5x1m</option>
+      <option>10x1m</option>
+      <option>20x1m</option>
+      <option>50x1m</option>
+    </select>
+    <input id="amount" type="number" placeholder="Amount" style="display:none; width:80px;">
+  </div>
+
+  <div class="button-line">
+    simulator.htmlBack</button>
+    <button onclick="recordEncounter()">Record</button>
+  </div>
+
+  <div class="summary">
+    <div id="patternInfo"></div>
+    <div id="nextSymbol"></div>
+    <div id="evInfo"></div>
+    <div id="suggestion"></div>
+    <div id="gcPower"></div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <input type="checkbox" id="showSummary">
+    <label for="showSummary" style="display:inline-block; max-width:300px; line-height:1.2;">
+      Do you have a session saved already?<br>
+      (Check to view/import/export your session data)
+    </label>
+  </div>
+
+  <div id="summarySection" style="display:none; text-align:center;">
+    <div id="summaryOutput" style="margin:10px 0;"></div>
+    <button onclick="exportData()">Export Data</button>
+    <textarea id="importArea" placeholder="Paste JSON here" style="width:90%; height:60px;"></textarea>
+    <button onclick="importData()">Import Data</button>
   </div>
 </body>
 </html>
