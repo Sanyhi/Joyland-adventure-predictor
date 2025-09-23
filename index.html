@@ -3,18 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <title>Joyland Adventure Predictor (V1.0.0)</title>
+  style.css
+  <style>
+    .top-left { position: absolute; top: 20px; left: 30px; font-weight: bold; font-size: 1.1em; }
+    .top-right { position: absolute; top: 20px; right: 30px; font-weight: bold; font-size: 1.1em; }
+    .main-title { text-align: center; font-size: 2.5em; font-weight: bold; margin-top: 60px; margin-bottom: 60px; }
+    .center-row { display: flex; justify-content: center; align-items: flex-start; gap: 80px; margin-top: 60px; }
+    .center-col { display: flex; flex-direction: column; align-items: center; width: 260px; }
+    .desc { text-align: center; margin-bottom: 16px; font-size: 1.1em; line-height: 1.3em; }
+    .main-btn { width: 220px; padding: 18px 0; font-size: 1.3em; font-weight: bold; border-radius: 12px; border: none; background: #3a7bd5; color: #fff; margin-bottom: 0; cursor: pointer; transition: background 0.2s; }
+    .main-btn:hover { background: #285a99; }
+    @media (max-width: 700px) {
+      .main-title { font-size: 1.5em; margin-top: 30px; margin-bottom: 30px; }
+      .center-row { flex-direction: column; gap: 40px; margin-top: 30px; }
+      .center-col { width: 90vw; }
+      .main-btn { width: 90vw; font-size: 1.1em; }
+    }
+  </style>
+  <script>
+    // Countdown to next Joyland event (odd weeks, Fri-Mon)
+    function updateCountdown() {
+      const now = new Date();
+      const weekNum = Math.ceil(((now - new Date(now.getFullYear(),0,1)) / 86400000 + new Date(now.getFullYear(),0,1).getDay()+1)/7);
+      let eventWeek = weekNum % 2 === 0 ? weekNum + 1 : weekNum;
+      let eventStart = new Date(now.getFullYear(), 0, 1 + (eventWeek-1)*7);
+      while (eventStart.getDay() !== 5) eventStart.setDate(eventStart.getDate()+1); // Friday
+      let eventEnd = new Date(eventStart); eventEnd.setDate(eventEnd.getDate()+3); // Monday
+      let msg = '';
+      if (now < eventStart) {
+        const days = Math.ceil((eventStart-now)/86400000);
+        msg = `Next Joyland Event in ${days} day${days!==1?'s':''}`;
+      } else if (now >= eventStart && now <= eventEnd) {
+        const dayNum = Math.floor((now-eventStart)/86400000)+1;
+        msg = `Joyland Event: Day ${dayNum}/4`;
+      } else {
+        const days = Math.ceil((eventStart.setDate(eventStart.getDate()+14)-now)/86400000);
+        msg = `Next Joyland Event in ${days} day${days!==1?'s':''}`;
+      }
+      document.getElementById('countdown').textContent = msg;
+    }
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('currentTime').textContent = now.toLocaleString();
+    }
+    window.onload = function() {
+      updateCountdown();
+      updateTime();
+      setInterval(updateCountdown, 60000);
+      setInterval(updateTime, 1000);
+    };
+  </script>
 </head>
 <body>
-  <h1 style="text-align:center;">Joyland Adventure Predictor (V1.0.0)</h1>
-
-  <div style="text-align:center; margin: 30px 0;">
-    <p>This is for strategy helping purposes,<br>get a feel of how the predictor works<br>and is always open!</p>
-    <button onclick="window.location.href='simulator.html'">SIMULATION</button>
-  </div>
-
-  <div style="text-align:center; margin: 30px 0;">
-    <p>Your given data will be remembered,<br>it will calculate the best approach for you,<br>make sure to follow the instructions given.</p>
-    <button onclick="window.location.href='predictor_main.html'">PREDICTOR</button>
+  <div class="top-left" id="countdown"></div>
+  <div class="top-right" id="currentTime"></div>
+  <div class="main-title">Joyland Adventure Predictor (V1.0.0)</div>
+  <div class="center-row">
+    <div class="center-col">
+      <div class="desc">This is for strategy helping purposes,<br>get a feel of how the predictor works<br>and is always open!</div>
+      simulator.htmlSIMULATION</button>
+    </div>
+    <div class="center-col">
+      <div class="desc">Your given data will be remembered,<br>it will calculate the best approach for you,<br>make sure to follow the instructions given.</div>
+      predictor_main.htmlPREDICTOR</button>
+    </div>
   </div>
 </body>
 </html>
