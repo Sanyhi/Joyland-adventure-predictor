@@ -167,3 +167,19 @@ window.onload = () => {
   });
   document.getElementById("showSummary").addEventListener("change", toggleSummary);
 };
+
+function confirmDeleteRecords() {
+  const records = getRecords();
+  const backup = JSON.stringify(records, null, 2);
+  const confirmDelete = confirm("Are you sure you want to delete all recorded encounters?\nYou can copy the data to clipboard before deleting.");
+  if (confirmDelete) {
+    const copy = confirm("Do you want to copy the current data to clipboard before deletion?");
+    if (copy) {
+      navigator.clipboard.writeText(backup);
+      alert("Data copied to clipboard.");
+    }
+    saveRecords([]);
+    updateUI();
+    alert("All records deleted.");
+  }
+}
