@@ -1,10 +1,74 @@
-// --- Pattern and Value Definitions ---
-const patterns = {
-  P1: "xDxfxxDtxDxfT",
-  P2: "xxFxDtxxDTDxf",
-  P3: "xxDtxxFxDTxfD",
-  P4: "xxtxDxFxDxDFT"
-};
+function getNextPrediction(sequence, usedPatterns) {
+  const patterns = {
+    P1: "xDxfxxDtxDxfT",
+    P2: "xxFxDtxxDTDxf",
+    P3: "xxDtxxFxDTxfD",
+    P4: "xxtxDxFxDxDFT"
+  };
+
+  // Step 1: Remove completed pattern from consideration
+  const availablePatterns = Object.entries(patterns).filter(([key]) => !usedPatterns.includes(key));
+
+  // Step 2: Determine where the last pattern ended
+  // Assume last pattern was exactly matched and ended at step N
+  // Start new pattern search from the first new symbol after that
+  const lastPatternLength = 13; // P2 is 13 steps long
+  const newSequence = sequence.slice(lastPatternLength); // Only use new steps
+
+  // Step 3: Match new sequence to start of remaining patterns
+  const matches = {};
+  availablePatterns.forEach(([name, pattern]) => {
+    let match = true;
+    for (let i = 0; i < newSequence.length; i++) {
+      if (pattern[i] !== newSequence[i]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) {
+      const nextSymbol = pattern[newSequence.length];
+      if (nextSymbol) {
+        matches[nextSymbol] = (matches[nextSymbol] || 0) + 1;
+      }
+    }
+  });
+
+  // Step 4: Calculate probabilities
+  const totalMatches = Object.values(matches).reduce((a, b) => a + b, 0);
+  const probabilities = {};
+  for (const [symbol, count] of Object.entries(matches)) {
+    probabilities[symbol] = count / totalMatches;
+  }
+
+  return probabilities;
+}
+
+const milestoneRewards = [
+  { m: 15, compass: 5, jc: 100 },
+  { m: 30, compass: 0, jc: 100 },
+  { m: 45, compass: 5, jc: 100 },
+  { m: 60, compass: 0, jc: 200 },
+  { m: 90, compass: 0, jc: 200 },
+  { m: 120, compass: 10, jc: 200 },
+  { m: 150, compass: 0, jc: 300 },
+  { m: 180, compass: 10, jc: 300 },
+  { m: 210, compass: 10, jc: 300 },
+  { m: 240, compass: 0, jc: 400 },
+  { m: 270, compass: 10, jc: 400 },
+  { m: 300, compass: 0, jc: 400 },
+  { m: 360, compass: 0, jc: 500 },
+  { m: 420, compass: 0, jc: 500 },
+  { m: 480, compass: 20, jc: 500 },
+  { m: 540, compass: 0, jc: 500 },
+  { m: 600, compass: 0, jc: 500 },
+  { m: 660, compass: 0, jc: 500 },
+  { m: 720, compass: 0, jc: 500 },
+  { m: 780, compass: 0, jc: 500 },
+  { m: 900, compass: 0, jc: 500 },
+  { m: 1050, compass: 0, jc: 500 },
+  { m: 1200, compass: 0, jc: 500 },
+  { m: 1350, compass: 0, jc: 500 }
+];
 
 const encounterValues = {
   x: 250,
@@ -182,4 +246,19 @@ function confirmDeleteRecords() {
     updateUI();
     alert("All records deleted.");
   }
+}
+
+function calculateMilestoneRewards(meters) {
+  let totalJC = 0;
+  let totalCompasses = 0;
+
+  milestoneRewards.forEach(reward => {
+    if (meters >= reward.m) {
+      totalJC += reward.jc;
+      totalCompasses += reward.compass;
+    }
+  });
+
+  document.getElementById("milestoneJC").textContent = `Milestone JC Earned: ${totalJC}`;
+  document.getElementById("milestoneCompasses").textContent = `Milestone Compasses Earned: ${totalCompasses}`;
 }
