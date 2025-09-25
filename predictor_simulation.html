@@ -3,10 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <title>Joyland Adventure Predictor Simulator</title>
-  predictor_style.css
-  <script src="predictor_script_simulation</head>
+  <link rel="stylesheet" href="predictor_style.css">
+  <script src="predictor_script_simulation.js" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .dropdown-left, .dropdown-right, .dropdown-center {
+      flex: 1;
+      text-align: center;
+    }
+    .title {
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    .gif-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .meter-box {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      border: 2px solid #3a7bd5;
+      padding: 10px;
+      margin: 0 auto 30px;
+      width: fit-content;
+      background: #fff;
+    }
+    .input-line {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .button-line {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .summary {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #summarySection {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    textarea {
+      width: 90%;
+      height: 60px;
+    }
+  </style>
+</head>
 <body>
-  <!-- Header with dropdowns and delete button -->
   <div class="header">
     <div class="dropdown-left">
       Risk Level:
@@ -16,11 +75,9 @@
         <option>High Risk</option>
       </select>
     </div>
-
     <div class="dropdown-center">
       <button onclick="confirmDeleteRecords()">Delete All Records</button>
     </div>
-
     <div class="dropdown-right">
       Priority:
       <select id="priority">
@@ -33,17 +90,16 @@
     </div>
   </div>
 
-  <!-- Title -->
   <div class="title">Joyland Adventure Predictor Simulator</div>
 
-  <!-- GIF -->
   <div class="gif-container">
-    <img id="predictionGif" src="uncotal meters box -->
-  <div class="meter-box" style="text-align:center; margin: 20px auto; font-weight:bold; font-size:1.2em; border: 2px solid #3a7bd5; padding: 10px; width: fit-content;">
+    uncertain.gif
+  </div>
+
+  <div class="meter-box">
     Total Meters Traveled: <span id="totalMeters">0</span>
   </div>
 
-  <!-- Encounter input line -->
   <div class="input-line">
     <label for="encounterType">Encounter:</label>
     <select id="encounterType">
@@ -64,20 +120,17 @@
     <input id="amount" type="number" placeholder="Amount" style="display:none; width:80px;">
   </div>
 
-  <!-- Buttons -->
   <div class="button-line">
     simulator.htmlBack</button>
     <button onclick="recordEncounter()">Record</button>
   </div>
 
-  <!-- JC/GC totals -->
-  <div class="summary" style="text-align:center; margin-top:10px;">
+  <div class="summary">
     <div id="totalJC">Total JC Acquired: 0</div>
     <div id="totalGC">Total GC Acquired: 0</div>
     <div id="totalCombined">Total JC + GC: 0</div>
   </div>
 
-  <!-- Prediction summary -->
   <div class="summary">
     <div id="patternInfo"></div>
     <div id="nextSymbol"></div>
@@ -86,8 +139,7 @@
     <div id="gcPower"></div>
   </div>
 
-  <!-- Summary toggle -->
-  <div style="text-align:center; margin-top:20px;">
+  <div style="text-align:center;">
     <input type="checkbox" id="showSummary">
     <label for="showSummary" style="display:inline-block; max-width:300px; line-height:1.2;">
       Do you have a session saved already?<br>
@@ -95,11 +147,10 @@
     </label>
   </div>
 
-  <!-- Import/export section -->
-  <div id="summarySection" style="display:none; text-align:center;">
+  <div id="summarySection">
     <div id="summaryOutput" style="margin:10px 0;"></div>
     <button onclick="exportData()">Export Data</button>
-    <textarea id="importArea" placeholder="Paste JSON here" style="width:90%; height:60px;"></textarea>
+    <textarea id="importArea" placeholder="Paste JSON here"></textarea>
     <button onclick="importData()">Import Data</button>
   </div>
 </body>
