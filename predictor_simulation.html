@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <title>Joyland Adventure Predictor Simulator</title>
   <link rel="stylesheet" href="predictor_style.css">
-  <script src="predictor_script_simulation.jsead>
+  <script src="predictor_script_simulation.js" defer></script>
+</head>
 <body>
   <div class="header">
     <div class="dropdown-left">
@@ -30,7 +31,7 @@
   <div class="title">Joyland Adventure Predictor Simulator</div>
 
   <div class="gif-container">
-    uncertain.gif
+    <img id="predictionGif" src="uncertain.gif" alt="Prediction GIF">
   </div>
 
   <div class="input-line">
@@ -54,7 +55,7 @@
   </div>
 
   <div class="button-line">
-    simulator.htmlBack</button>
+    <button onclick="window.location.href='simulator.html'">Back</button>
     <button onclick="recordEncounter()">Record</button>
   </div>
 
