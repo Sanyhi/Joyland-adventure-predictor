@@ -262,3 +262,90 @@ function calculateMilestoneRewards(meters) {
   document.getElementById("milestoneJC").textContent = `Milestone JC Earned: ${totalJC}`;
   document.getElementById("milestoneCompasses").textContent = `Milestone Compasses Earned: ${totalCompasses}`;
 }
+
+// --- Mining Compass Calculation Until Next Odd-Week Sunday 20:00 ---
+function calculateMiningUntilOddSunday(lifetimePrivilege = true) {
+  const now = new Date();
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  const daysSinceStart = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
+  const currentWeek = Math.ceil((daysSinceStart + startOfYear.getDay() + 1) / 7);
+  const nextOddWeek = currentWeek % 2 === 0 ? currentWeek + 1 : currentWeek;
+
+  const daysToNextOddWeek = (nextOddWeek - currentWeek) * 7;
+  const nextOddSunday = new Date(now);
+  nextOddSunday.setDate(now.getDate() + daysToNextOddWeek + (7 - nextOddSunday.getDay()));
+  nextOddSunday.setHours(20, 0, 0, 0);
+
+  const minutesRemaining = Math.floor((nextOddSunday - now) / 60000);
+  let compasses = Math.floor(minutesRemaining / 10);
+  const maxCompasses = lifetimePrivilege ? 1000 : 100;
+  compasses = Math.min(compasses, maxCompasses);
+  const gc = compasses * 15;
+
+  return { compasses, gc };
+}
+
+// --- Gold Strategy Calculator for Meter Goals ---
+function calculateGoldStrategy(playerData) {
+  const meterGoals = {
+    "300m": 50760,
+    "360m": 68040,
+    "600m": 125640,
+    "900m": 212040
+  };
+
+  const GOLD_CHEST_AVG = 200;
+  const mining = calculateMiningUntilOddSunday(playerData.lifetimePrivilege);
+  const startingGold = playerData.startingGold || 51400;
+  const eventGC = playerData.eventGC || 88000;
+  const umbraGC = 50 * 62;
+
+  const totalNaturalGC = startingGold + eventGC + mining.gc + umbraGC;
+  const strategies = {};
+
+  for (const [goal, requiredGC] of Object.entries(meterGoals)) {
+    const deficit = requiredGC - totalNaturalGC;
+    let goldChestNeeded = 0;
+    let strategy = "";
+
+    if (deficit > 0) {
+      goldChestNeeded = Math.ceil(deficit / GOLD_CHEST_AVG);
+      strategy = `
+        ❌ You cannot reach ${goal} with natural resources alone.
+        ➤ You need approximately ${goldChestNeeded} gold chest encounters.
+        ➤ Focus on pattern prediction to target 't' events.
+        ➤ Use multipliers only when gold chests are guaranteed.
+        ➤ Once ${requiredGC} GC is reached, switch to max EV strategy.
+      `;
+    } else {
+      strategy = `
+        ✅ You can reach ${goal} with your current resources.
+        ➤ Switch to maximum EV strategy.
+        ➤ Optimize for JC, milestone rewards, and efficient compass usage.
+      `;
+    }
+
+    strategies[goal] = {
+      requiredGC,
+      totalNaturalGC,
+      deficit: Math.max(0, deficit),
+      goldChestNeeded,
+      strategy: strategy.trim()
+    };
+  }
+
+  return strategies;
+}
+
+// --- Example Usage (can be triggered on page load or button click) ---
+function displayGoldStrategy() {
+  const simData = loadSimulationData();
+  const strategies = calculateGoldStrategy(simData);
+  const goal = simData.priority.includes("300m") ? "300m"
+              : simData.priority.includes("360m") ? "360m"
+              : simData.priority.includes("600m") ? "600m"
+              : "900m";
+
+  const strategyText = strategies[goal].strategy;
+  document.getElementById("strategyGuide").innerText = strategyText;
+}
