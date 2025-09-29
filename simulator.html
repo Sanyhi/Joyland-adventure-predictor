@@ -14,6 +14,14 @@
     <div class="table-wrapper">
       <table>
         <tr><td>1. Risk Level:</td><td>
+          <td>
+  1. Risk level:
+  <span title="This input determinens how you wish to behave during the event:
+    are you more of a risk taker (HR)
+    someone who wishes to just test the waters (MR)
+    or someone who wishes to get the most consistant experience while taking advantage of statistics (LR)
+    These are giving more (HR=1.6,MR=1.3,LR=1) weighs in the prediction calculation to the statistically advantage you have and take that way more risk">[?]</span>
+</td>
           <select id="risk">
             <option value="">Choose 1</option>
             <option value="LR">Low Risk</option>
@@ -22,6 +30,13 @@
           </select>
         </td></tr>
         <tr><td>2. Priority:</td><td>
+          <td>
+  2. Priority:
+  <span title="During the event, you have many choices to make and depending your lifestyle it can be that you might not care that much about Gold (max JC), or someone who wishes to just get the best value deals, but spend the least amount of starting gold (max GC), or want to just barely make the m's (m priority), it doesnt matter, just choose your preference and it will be adjusted:
+    Gold priority = minimum amount of JC for the daily deals (84k JC), aiming for the most reasonable m, but the overflow that comes from just the m traveled, will be converted back to gold
+    Joyland coin priority = minimum amount of GC to reach the most reasonable goal (300-360-900m), aiming for the most reasonable gold get, but the overflow that comes from just the m traveled, will be converted into JC
+    300-360-900m priority = The difference between Joyland coin priority and m priority is that the overflow will be evenly divided between gold and joyland coin, above the minimums for both.">[?]</span>
+</td>
           <select id="priority">
             <option value="">Choose 1</option>
             <option value="Gold">Gold priority</option>
@@ -32,11 +47,42 @@
           </select>
         </td></tr>
         <tr><td>3. Boss Fight Ranking:</td><td><input type="number" id="bossRank"></td></tr>
+        <td>
+  3. Boss Fight Ranking:
+  <span title="Your current boss fight ranking.">[?]</span>
+</td>
         <tr><td>4. Arena Ranking:</td><td><input type="number" id="arenaRank"></td></tr>
         <tr><td>5. Boss Fight Damage:</td><td><input type="number" id="bossDmg"></td></tr>
         <tr><td>6. Lifetime Privilege:</td><td><input type="checkbox" id="privilege"></td></tr>
-        <tr><td>7. Merchant Haggling:</td><td><input type="number" id="merchant"></td></tr>
-        <tr><td>8. Chaos Blitz Amount:</td><td><input type="number" id="chaos"></td></tr>
+        <tr>
+  <td>
+    6. Lifetime Privilege:
+    <span title="Check this if you have the lifetime privilege active.">[?]</span>
+  </td>
+  <td>
+    <input type="checkbox" id="lifetimePrivilege" onclick="toggleLifetimeInput()" />
+  </td>
+  <td id="lifetimeInputCell" style="display:none;">
+    Magic key amount:<br>
+    <input type="number" id="magicKeyAmount" />
+  </td>
+</tr>
+
+<tr>
+  <td>
+    7. Gold Mining?
+    <span title="Check this if you plan to mine gold during the event.">[?]</span>
+  </td>
+  <td>
+    <input type="checkbox" id="goldMining" onclick="toggleMiningInput()" />
+  </td>
+  <td id="miningInputCell" style="display:none;">
+    Compass amount:<br>
+    <input type="number" id="miningCompassAmount" />
+  </td>
+</tr>
+        <tr><td>8. Merchant Haggling:</td><td><input type="number" id="merchant"></td></tr>
+        <tr><td>9. Chaos Blitz Amount:</td><td><input type="number" id="chaos"></td></tr>
       </table>
     </div>
     <button id="confirm" style="display:none" onclick="saveData()">Confirm</button>
