@@ -54,10 +54,9 @@ function toggleInputs() {
   const privilege = document.getElementById("privilege").checked;
   const goldMining = document.getElementById("goldMining").checked;
 
-  document.getElementById("magicKeyAmount").style.display = privilege ? "inline-block" : "none";
-  document.getElementById("magicKeyLabel").style.display = privilege ? "inline-block" : "none";
-
-  document.getElementById("compassAmount").style.display = goldMining ? "inline-block" : "none";
-  document.getElementById("compassLabel").style.display = goldMining ? "inline-block" : "none";
+  document.getElementById("magicKeyContainer").style.display = privilege ? "block" : "none";
+  document.getElementById("compassContainer").style.display = goldMining ? "block" : "none";
 }
 
+document.getElementById("privilege").addEventListener("change", toggleInputs);
+document.getElementById("goldMining").addEventListener("change", toggleInputs);
