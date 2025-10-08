@@ -9,6 +9,7 @@ function loadSimulationData() {
   if (data.merchantHaggling) document.getElementById("merchantHaggling").value = data.merchantHaggling;
   if (data.chaosBlitz) document.getElementById("chaosBlitz").value = data.chaosBlitz;
   if (data.privlige) document.getElementById("privlige").checked = true;
+  if (data.goldMining) document.getElementById("goldMining").checked = true
 }
 window.onload = () => {
   loadSimulationData();
@@ -44,6 +45,7 @@ window.onload = () => {
       merchantHaggling: document.getElementById("merchantHaggling").value,
       chaosBlitz: document.getElementById("chaosBlitz").value,
       privlige: document.getElementById("privlige").checked
+      goldMining: document.getElementByID("goldMining").checked
     };
     localStorage.setItem("simulatorData", JSON.stringify(data));
     toPredictorBtn.style.display = "inline-block";
@@ -54,8 +56,11 @@ function toggleInputs() {
   const privilege = document.getElementById("privilege").checked;
   const goldMining = document.getElementById("goldMining").checked;
 
-  document.getElementById("magicKeyContainer").style.display = privilege ? "block" : "none";
-  document.getElementById("compassContainer").style.display = goldMining ? "block" : "none";
+  document.getElementById("magicKeyAmount").style.display = privilege ? "inline-block" : "none";
+  document.getElementById("magicKeyLabel").style.display = privilege ? "inline-block" : "none";
+
+  document.getElementById("compassAmount").style.display = goldMining ? "inline-block" : "none";
+  document.getElementById("compassLabel").style.display = goldMining ? "inline-block" : "none";
 }
 
 document.getElementById("privilege").addEventListener("change", toggleInputs);
