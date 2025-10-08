@@ -49,13 +49,11 @@ window.onload = () => {
     toPredictorBtn.style.display = "inline-block";
   });
 };
-function toggleInputs() {
-  const lifetime = document.getElementById("lifetimePrivilege").checked;
+
+function toggleInputs()
+  {
+  const lifetime = document.getElementById("privlige").checked;
   const goldMining = document.getElementById("goldMining").checked;
-
-  document.getElementById("magicKeyAmount").style.display = lifetime ? "inline-block" : "none";
-  document.getElementById("compassAmount").style.display = goldMining ? "inline-block" : "none";
+  document.getElementById("magicKeyContainer").style.display = lifetime ? "block" : "none";
+  document.getElementById("compassContainer").style.display = goldMining ? "block" : "none";
 }
-
-document.getElementById("lifetimePrivilege").addEventListener("change", toggleInputs);
-document.getElementById("goldMining").addEventListener("change", toggleInputs);
