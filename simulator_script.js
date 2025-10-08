@@ -1,3 +1,19 @@
+function loadSimulationData() {
+  const data = JSON.parse(localStorage.getItem("simulatorData")) || {};
+  if (data.risk) document.getElementById("risk").value = data.risk;
+  if (data.priority) document.getElementById("priority").value = data.priority;
+  if (data.gc) document.getElementById("gc").value = data.gc;
+  if (data.bossFightRanking) document.getElementById("bossFightRanking").value = data.bossFightRanking;
+  if (data.arenaRanking) document.getElementById("arenaRanking").value = data.arenaRanking;
+  if (data.bossFightDmg) document.getElementById("bossFightDmg").value = data.bossFightDmg;
+  if (data.merchantHaggling) document.getElementById("merchantHaggling").value = data.merchantHaggling;
+  if (data.chaosBlitz) document.getElementById("chaosBlitz").value = data.chaosBlitz;
+  if (data.lifetimePrivilege) document.getElementById("lifetimePrivilege").checked = true;
+}
+window.onload = () => {
+  loadSimulationData();
+  // existing logic...
+};
 
 window.onload = () => {
   const confirmBtn = document.getElementById("confirmBtn");
