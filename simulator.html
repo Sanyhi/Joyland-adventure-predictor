@@ -42,17 +42,18 @@
         </td></tr>
         <tr><td>3. Boss Fight Ranking:
         <span title="Your current boss fight ranking.">[?]</span></td><td><input type="number" id="bossRank"></td></tr>
-        <tr><td>4. Arena Ranking:</td><td><input type="number" id="arenaRank"></td></tr>
-        <tr><td>5. Boss Fight Damage:</td><td><input type="number" id="bossDmg"></td></tr>
+        <tr><td>4. Arena Ranking:
+            <span title="Write down your average daily arena ranking, if you lowball its fine.">[?]</span></td><td><input type="number" id="arenaRank"></td></tr>
+        <tr><td>5. Boss Fight chest amount:
+            <span title="Write down the amount (1-175) on how much boss fight chest you get per fight">[?]</span></td><td><input type="number" id="bossDmg"></td></tr>
         <tr><td>6. Lifetime Privilege:
          <span title="Check this if you have the lifetime privilege active.">[?]</span></td><td><input type="checkbox" id="privilege"></td></tr>
         <tr>
-  <td>
-    <input type="checkbox" id="lifetimePrivilege" onclick="toggleLifetimeInput()" />
-  </td>
-  <td id="lifetimeInputCell" style="display:none;">
-    Magic key amount:<br>
-    <input type="number" id="magicKeyAmount" />
+ <td>
+    <input type="checkbox" id="lifetimePrivilege"> Enable
+    <br>
+    <label for="magicKeyAmount" style="display:none;">Magic Key Amount:</label>
+    <input type="number" id="magicKeyAmount" style="display:none;">
   </td>
 </tr>
 
@@ -61,16 +62,17 @@
     7. Gold Mining?
     <span title="Check this if you plan to mine gold during the event.">[?]</span>
   </td>
-  <td>
-    <input type="checkbox" id="goldMining" onclick="toggleMiningInput()" />
-  </td>
-  <td id="miningInputCell" style="display:none;">
-    Compass amount:<br>
-    <input type="number" id="miningCompassAmount" />
+ <td>
+    <input type="checkbox" id="goldMining"> Enable
+    <br>
+    <label for="compassAmount" style="display:none;">Compass Amount:</label>
+    <input type="number" id="compassAmount" style="display:none;">
   </td>
 </tr>
-        <tr><td>8. Merchant Haggling:</td><td><input type="number" id="merchant"></td></tr>
-        <tr><td>9. Chaos Blitz Amount:</td><td><input type="number" id="chaos"></td></tr>
+        <tr><td>8. Merchant Haggling:
+            <span title="Write down the average amount of gold you get from the guild merchant feature (if you dont get any gold, write 0)">[?]</span></td><td><input type="number" id="merchant"></td></tr>
+        <tr><td>9. Chaos Blitz Amount:
+            <span title="How many times do you use the chaos blitz feature in a day (without ads?), write down the number between 1-6">[?]</span></td><td><input type="number" id="chaos"></td></tr>
       </table>
     </div>
     <button id="confirm" style="display:none" onclick="saveData()">Confirm</button>
@@ -79,3 +81,25 @@
   </div>
 </body>
 </html>
+
+
+
+<tr>
+  <td>6. Lifetime Privilege:</td>
+  <td>
+    <input type="checkbox" id="lifetimePrivilege"> Enable
+    <br>
+    <label for="magicKeyAmount" style="display:none;">Magic Key Amount:</label>
+    <input type="number" id="magicKeyAmount" style="display:none;">
+  </td>
+</tr>
+
+<tr>
+  <td>7. Gold Mining?</td>
+  <td>
+    <input type="checkbox" id="goldMining"> Enable
+    <br>
+    <label for="compassAmount" style="display:none;">Compass Amount:</label>
+    <input type="number" id="compassAmount" style="display:none;">
+  </td>
+</tr>
