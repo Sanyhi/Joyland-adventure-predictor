@@ -8,7 +8,7 @@ function loadSimulationData() {
   if (data.bossFightDmg) document.getElementById("bossFightDmg").value = data.bossFightDmg;
   if (data.merchantHaggling) document.getElementById("merchantHaggling").value = data.merchantHaggling;
   if (data.chaosBlitz) document.getElementById("chaosBlitz").value = data.chaosBlitz;
-  if (data.lifetimePrivilege) document.getElementById("lifetimePrivilege").checked = true;
+  if (data.privlige) document.getElementById("privlige").checked = true;
 }
 window.onload = () => {
   loadSimulationData();
@@ -43,7 +43,7 @@ window.onload = () => {
       bossFightDmg: document.getElementById("bossFightDmg").value,
       merchantHaggling: document.getElementById("merchantHaggling").value,
       chaosBlitz: document.getElementById("chaosBlitz").value,
-      lifetimePrivilege: document.getElementById("lifetimePrivilege").checked
+      privlige: document.getElementById("privlige").checked
     };
     localStorage.setItem("simulatorData", JSON.stringify(data));
     toPredictorBtn.style.display = "inline-block";
