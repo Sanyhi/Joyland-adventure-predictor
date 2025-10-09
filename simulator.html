@@ -4,12 +4,90 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Joyland Adventure Predictor - Simulation Setup</title>
-  <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
  
   <style>
-    /* Highlight the [?] tooltips on hover */
+    /* General page style */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+ 
+    /* Container */
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+ 
+    /* Headline */
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #222;
+    }
+ 
+    /* Table styling */
+    .table-wrapper table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+ 
+    .table-wrapper td {
+      padding: 12px;
+      vertical-align: middle;
+    }
+ 
+    .table-wrapper tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+ 
+    /* Inputs and selects */
+    input[type="number"], select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      transition: border 0.2s;
+    }
+ 
+    input[type="number"]:focus, select:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 4px rgba(79,70,229,0.4);
+    }
+ 
+    /* Buttons */
+    button {
+      margin: 12px 6px 0 0;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      background: #4f46e5;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+ 
+    button:hover {
+      background: #3730a3;
+    }
+ 
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+ 
+    /* Tooltip highlight */
     span[title] {
+      cursor: help;
       font-weight: normal;
       text-decoration: none;
       transition: all 0.2s ease-in-out;
@@ -26,67 +104,101 @@
     <h2>Joyland Adventure Predictor - Simulation Setup</h2>
     <div class="table-wrapper">
       <table>
-        <tr><td>1. Risk Level:
-        <span title="This input determinens how you wish to behave during the event:
-   are you more of a risk taker (HR)
-   someone who wishes to just test the waters (MR)
-   or someone who wishes to get the most consistant experience while taking advantage of statistics (LR)
-   These are giving more (HR=1.6,MR=1.3,LR=1) weighs in the prediction calculation to the statistically advantage you have and take that way more risk">[?]</span></td><td>
-          <select id="risk">
-            <option value="">Choose 1</option>
-            <option value="LR">Low Risk</option>
-            <option value="MR">Medium Risk</option>
-            <option value="HR">High Risk</option>
-          </select>
-        </td></tr>
-        <tr><td>2. Priority:
-          <span title="During the event, you have many choices to make and depending your lifestyle it can be that you might not care that much about Gold (max JC), or someone who wishes to just get the best value deals, but spend the least amount of starting gold (max GC), or want to just barely make the m's (m priority), it doesnt matter, just choose your preference and it will be adjusted:
-   Gold priority = minimum amount of JC for the daily deals (84k JC), aiming for the most reasonable m, but the overflow that comes from just the m traveled, will be converted back to gold
-   Joyland coin priority = minimum amount of GC to reach the most reasonable goal (300-360-900m), aiming for the most reasonable gold get, but the overflow that comes from just the m traveled, will be converted into JC
-   300-360-900m priority = The difference between Joyland coin priority and m priority is that the overflow will be evenly divided between gold and joyland coin, above the minimums for both.">[?]</span></td><td>
-          <select id="priority">
-            <option value="">Choose 1</option>
-            <option value="Gold">Gold priority</option>
-            <option value="Joyland">Joyland coin priority</option>
-            <option value="300m">300m priority</option>
-            <option value="360m">360m priority</option>
-            <option value="900m">900m priority</option>
-          </select>
-        </td></tr>
-        <tr><td>3. Boss Fight Ranking:
-        <span title="Your current boss fight ranking.">[?]</span></td><td><input type="number" id="bossRank"></td></tr>
-        <tr><td>4. Arena Ranking:
-            <span title="Write down your average daily arena ranking, if you lowball its fine.">[?]</span></td><td><input type="number" id="arenaRank"></td></tr>
-        <tr><td>5. Boss Fight chest amount:
-            <span title="Write down the amount (1-175) on how much boss fight chest you get per fight">[?]</span></td><td><input type="number" id="bossDmg"></td></tr>
-        <tr><td>6. Lifetime Privilege:
-         <span title="Check this if you have the lifetime privilege active.">[?]</span></td><td><input type="checkbox" id="privilege"> Enable
-           <br>
-      <label for="magicKeyAmount">Magic Key Amount:</label>
-      <input type="number" id="magicKeyAmount">
-         </td></tr>
- 
-<tr>
-  <td>
-    7. Gold Mining?
-    <span title="Check this if you plan to mine gold during the event.">[?]</span>
-  </td>
-  <td>
-    <input type="checkbox" id="goldMining"> Enable
-    <br>
-    <label for="compassAmount" id="compassLabel" style ="display:none;">Compass Amount:</label>
-      <input type="number" id="compassAmount">
-    </td>
-</tr>
-        <tr><td>8. Merchant Haggling:
-            <span title="Write down the average amount of gold you get from the guild merchant feature (if you dont get any gold, write 0)">[?]</span></td><td><input type="number" id="merchant"></td></tr>
-        <tr><td>9. Chaos Blitz Amount:
-            <span title="How many times do you use the chaos blitz feature in a day (without ads?), write down the number between 1-6">[?]</span></td><td><input type="number" id="chaos"></td></tr>
+        <tr>
+          <td>1. Risk Level:
+            <span title="This input determinens how you wish to behave during the event:
+are you more of a risk taker (HR)
+someone who wishes to just test the waters (MR)
+or someone who wishes to get the most consistant experience while taking advantage of statistics (LR)
+These are giving more (HR=1.6,MR=1.3,LR=1) weighs in the prediction calculation to the statistically advantage you have and take that way more risk">[?]</span>
+          </td>
+          <td>
+            <select id="risk">
+              <option value="">Choose 1</option>
+              <option value="LR">Low Risk</option>
+              <option value="MR">Medium Risk</option>
+              <option value="HR">High Risk</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>2. Priority:
+            <span title="During the event, you have many choices to make and depending your lifestyle it can be that you might not care that much about Gold (max JC), or someone who wishes to just get the best value deals, but spend the least amount of starting gold (max GC), or want to just barely make the m's (m priority), it doesnt matter, just choose your preference and it will be adjusted:
+Gold priority = minimum amount of JC for the daily deals (84k JC), aiming for the most reasonable m, but the overflow that comes from just the m traveled, will be converted back to gold
+Joyland coin priority = minimum amount of GC to reach the most reasonable goal (300-360-900m), aiming for the most reasonable gold get, but the overflow that comes from just the m traveled, will be converted into JC
+300-360-900m priority = The difference between Joyland coin priority and m priority is that the overflow will be evenly divided between gold and joyland coin, above the minimums for both.">[?]</span>
+          </td>
+          <td>
+            <select id="priority">
+              <option value="">Choose 1</option>
+              <option value="Gold">Gold priority</option>
+              <option value="Joyland">Joyland coin priority</option>
+              <option value="300m">300m priority</option>
+              <option value="360m">360m priority</option>
+              <option value="900m">900m priority</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>3. Boss Fight Ranking:
+            <span title="Your current boss fight ranking.">[?]</span>
+          </td>
+          <td><input type="number" id="bossRank"></td>
+        </tr>
+        <tr>
+          <td>4. Arena Ranking:
+            <span title="Write down your average daily arena ranking, if you lowball its fine.">[?]</span>
+          </td>
+          <td><input type="number" id="arenaRank"></td>
+        </tr>
+        <tr>
+          <td>5. Boss Fight chest amount:
+            <span title="Write down the amount (1-175) on how much boss fight chest you get per fight">[?]</span>
+          </td>
+          <td><input type="number" id="bossDmg"></td>
+        </tr>
+        <tr>
+          <td>6. Lifetime Privilege:
+            <span title="Check this if you have the lifetime privilege active.">[?]</span>
+          </td>
+          <td>
+            <input type="checkbox" id="privilege"> Enable
+            <br>
+            <label for="magicKeyAmount">Magic Key Amount:</label>
+            <input type="number" id="magicKeyAmount">
+          </td>
+        </tr>
+        <tr>
+          <td>7. Gold Mining?
+            <span title="Check this if you plan to mine gold during the event.">[?]</span>
+          </td>
+          <td>
+            <input type="checkbox" id="goldMining"> Enable
+            <br>
+            <label for="compassAmount" id="compassLabel" style="display:none;">Compass Amount:</label>
+            <input type="number" id="compassAmount">
+          </td>
+        </tr>
+        <tr>
+          <td>8. Merchant Haggling:
+            <span title="Write down the average amount of gold you get from the guild merchant feature (if you dont get any gold, write 0)">[?]</span>
+          </td>
+          <td><input type="number" id="merchant"></td>
+        </tr>
+        <tr>
+          <td>9. Chaos Blitz Amount:
+            <span title="How many times do you use the chaos blitz feature in a day (without ads?), write down the number between 1-6">[?]</span>
+          </td>
+          <td><input type="number" id="chaos"></td>
+        </tr>
       </table>
     </div>
-    <button id="confirm" style="display:none" onclick="saveData()">Confirm</button>
-    <button id="nextPage" style="display:none" onclick="location.href='predictor_simulation.html'">Go to Predictor</button>
-    <button onclick="location.href='index.html'">Back</button>
+    <div style="text-align:center; margin-top:20px;">
+      <button id="confirm" style="display:none" onclick="saveData()">Confirm</button>
+      <button id="nextPage" style="display:none" onclick="location.href='predictor_simulation.html'">Go to Predictor</button>
+      <button onclick="location.href='index.html'">Back</button>
+    </div>
   </div>
 </body>
 </html>
+ 
