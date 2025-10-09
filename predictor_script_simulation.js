@@ -274,6 +274,27 @@ function showPrediction(records) {
   
   const certaintyPercent = certain ? 100 : (total > 0 ? Math.max(...Object.values(probabilities)) * 100 : 0);
   document.getElementById("certaintyInfo").textContent = `Prediction Certainty: ${certaintyPercent.toFixed(1)}%`;
+ const predictionDisplay = {};
+  Object.entries(probabilities).forEach(([sym, prob]) => {
+    predictionDisplay[sym] = `${(prob * 100).toFixed(1)}%`;
+  });
+  
+  // Update the new frontend display
+  updatePredictionDisplay(predictionDisplay);
+  
+  // Get multiplier recommendation from your existing logic
+  const ev = certain ? expectedValue(nextSymbol, simData.riskLevel) : 0;
+  const recommendation = getEnhancedRecommendation(nextSymbol, ev, probabilities);
+  
+  // Extract multiplier advice from recommendation text
+  let multiplierRec = "--";
+  if (recommendation.includes("50x1m")) multiplierRec = "50x1m";
+  else if (recommendation.includes("1x1m")) multiplierRec = "1x1m";
+  else if (recommendation.includes("20x1m")) multiplierRec = "20x1m";
+  else if (recommendation.includes("10x1m")) multiplierRec = "10x1m";
+  else if (recommendation.includes("5x1m")) multiplierRec = "5x1m";
+  
+  updateMultiplierRecommendation(multiplierRec);
   
   if (certain) {
     const ev = expectedValue(nextSymbol, simData.riskLevel);
@@ -793,3 +814,37 @@ function updateMultiplierRecommendation(recommendation) {
     element.textContent = recommendation;
   }
 }
+
+
+function calculateRealPercentages() {
+  // Get current pattern history
+  const recentEncounters = getRecentEncounters(); // Your function that gets last 2-3 encounters
+  
+  // Analyze what patterns are possible from current position
+  const possibleNextEncounters = analyzePatterns(recentEncounters);
+  
+  // Calculate actual probabilities based on pattern frequency
+  const totalPossibilities = possibleNextEncounters.length;
+  const probabilityCount = {};
+  
+  possibleNextEncounters.forEach(encounter => {
+    probabilityCount[encounter] = (probabilityCount[encounter] || 0) + 1;
+  });
+  
+  // Convert to percentages
+  const predictions = {};
+  for (const [encounter, count] of Object.entries(probabilityCount)) {
+    const percentage = Math.round((count / totalPossibilities) * 100);
+    predictions[encounter] = `${percentage}%`;
+  }
+  
+  updatePredictionDisplay(predictions);
+  
+  // Also update multiplier based on actual probabilities
+  const recommendedMultiplier = calculateMultiplier(predictions);
+  updateMultiplierRecommendation(recommendedMultiplier);
+}
+
+// Example based on your pattern:
+// If current pattern is "Normal" -> possible next: ["Normal", "Normal", "Choose 1"]
+// Then percentages would be: Normal: 66%, Choose 1: 33%
