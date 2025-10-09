@@ -766,3 +766,30 @@ Special:
 
   document.getElementById("strategyGuide").innerText = strategyText + breakdown;
 }
+
+
+function toggleSummarySection() {
+  const showSummary = document.getElementById('showSummary').checked;
+  const summarySection = document.getElementById('summarySection');
+  summarySection.style.display = showSummary ? 'block' : 'none';
+}
+
+// Function to update prediction percentages
+function updatePredictionDisplay(predictions) {
+  const container = document.getElementById('predictionPercentages');
+  if (!container) return;
+  
+  let html = '';
+  for (const [encounter, percentage] of Object.entries(predictions)) {
+    html += `<div style="display: inline-block; margin: 0 10px;">${encounter}: ${percentage}%</div>`;
+  }
+  container.innerHTML = html;
+}
+
+// Function to update multiplier recommendation
+function updateMultiplierRecommendation(recommendation) {
+  const element = document.getElementById('multiplierRecommendation');
+  if (element) {
+    element.textContent = recommendation;
+  }
+}
