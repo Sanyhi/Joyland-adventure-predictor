@@ -285,6 +285,68 @@ function calculateMiningUntilOddSunday(lifetimePrivilege = true) {
   return { compasses, gc };
 }
 
+function calculateDynamicGCIncome() {
+  const now = new Date();
+  const simData = JSON.parse(localStorage.getItem("simulatorData")) || {};
+
+  // Calculate end date: next odd-week Sunday at 20:00
+  const startOfYear = new Date(now.getFullYear(), 0, 1);
+  const daysSinceStart = Math.floor((now - startOfYear) / (1000 * 60 * 60 * 24));
+  const currentWeek = Math.ceil((daysSinceStart + startOfYear.getDay() + 1) / 7);
+  const nextOddWeek = currentWeek % 2 === 0 ? currentWeek + 1 : currentWeek;
+  const daysToNextOddWeek = (nextOddWeek - currentWeek) * 7;
+  const endDate = new Date(now);
+  endDate.setDate(now.getDate() + daysToNextOddWeek + (7 - endDate.getDay()));
+  endDate.setHours(20, 0, 0, 0);
+
+  const totalDays = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+  const weekdays = Array.from({ length: totalDays }, (_, i) => {
+    const d = new Date(now);
+    d.setDate(d.getDate() + i);
+    return d.getDay();
+  });
+
+  const countWeekday = (day) => weekdays.filter(d => d === day).length;
+
+  // GC sources
+  const lifetimePrivilege = simData.lifetimePrivilege ?? true;
+  const dailyGC = {
+    umbraFree: LifetimePrivlige ? 620 * 10 * totalDays : 0,
+    dailyQuests: 750 * totalDays,
+    lifetimePrivilege: lifetimePrivilege ? 500 * totalDays : 0,
+    library: 281 * totalDays,
+    advertising: 100 * totalDays,
+    bossFight: Math.round((simData.bossFightChests ?? 0) * 1,17) ,
+    arenaDaily: 1500 * totalDays,
+    merchantHaggling: 1000 * totalDays,
+    campaign: 1770 * totalDays,
+    blitz: -3675,
+    signInFriday: 310 * countWeekday(5),
+    joylandQuestsBiweekly: 15300 * Math.floor(countWeekday(5) / 2),
+    guildEventThursday: 12000 * countWeekday(4),
+    guildUmbrsThursday: 1240 * countWeekday(4),
+    bossFightGC: 1012 * totalDays,
+    umbraKeysPurchase: calculateUmbraKeyGC(simData.startingGold ?? 0),
+    milestoneBonus: simData.priority.includes("360m") ? 3100 : 0
+  };
+
+  const totalGC = Object.values(dailyGC).reduce((a, b) => a + b, 0);
+
+  return {
+    startDate: now,
+    endDate,
+    totalDays,
+    dailyGC,
+    totalGC
+  };
+}
+
+function calculateUmbraKeyGC(startingGold) {
+  // Example logic: 1 umbra key = 1054 GC, assume 50 keys if gold > 50k
+  const keys = startingGold >= 50000 ? 50 : 0;
+  return keys * 1054;
+}
+
 // --- Gold Strategy Calculator for Meter Goals ---
 function calculateGoldStrategy(playerData) {
   const meterGoals = {
