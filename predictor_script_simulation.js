@@ -84,43 +84,42 @@ function getPatternProbabilities(records) {
   const symbols = records.map(r => r.symbol);
   const totalSteps = symbols.length;
   
-  // Calculate which pattern cycle we're in and which patterns are available
+  console.log('=== PATTERN DEBUG ===');
+  console.log('Total symbols:', symbols);
+  console.log('Total steps:', totalSteps);
+  console.log('Available patterns keys:', Object.keys(patterns));
+  
   const cyclesCompleted = Math.floor(totalSteps / 13);
   const stepsInCurrentCycle = totalSteps % 13;
   
-  // Determine available patterns for this cycle (4 patterns total, cycle through them)
+  console.log('Cycles completed:', cyclesCompleted);
+  console.log('Steps in current cycle:', stepsInCurrentCycle);
+  
   const availablePatternKeys = [];
   for (let i = 0; i < 4; i++) {
     const patternIndex = (cyclesCompleted + i) % 4;
-    availablePatternKeys.push(`pattern${patternIndex + 1}`);
+    const patternKey = `pattern${patternIndex + 1}`;
+    availablePatternKeys.push(patternKey);
   }
   
-  // Only use patterns that are available in current cycle
+  console.log('Available pattern keys for this cycle:', availablePatternKeys);
+  
   const availablePatterns = Object.entries(patterns)
     .filter(([key, _]) => availablePatternKeys.includes(key));
   
-  // Match against the current cycle's symbols
+  console.log('Filtered available patterns:', availablePatterns.map(([key]) => key));
+  
   const currentCycleSymbols = symbols.slice(-stepsInCurrentCycle);
+  console.log('Current cycle symbols to match:', currentCycleSymbols);
   
   const matches = availablePatterns.filter(([_, seq]) =>
     currentCycleSymbols.every((s, i) => seq[i] === s)
   );
   
-  const nextCounts = {};
-  matches.forEach(([_, seq]) => {
-    const next = seq[stepsInCurrentCycle];
-    if (next) nextCounts[next] = (nextCounts[next] || 0) + 1;
-  });
+  console.log('Matching patterns found:', matches.length);
+  console.log('=====================');
   
-  const total = matches.length;
-  const probabilities = {};
-  for (const [sym, count] of Object.entries(nextCounts)) {
-    probabilities[sym] = count / total;
-  }
-  
-  console.log(`Cycle: ${cyclesCompleted}, Steps: ${stepsInCurrentCycle}, Available: ${availablePatternKeys}, Matches: ${matches.length}`);
-  
-  return { probabilities, total };
+  // ... rest of your function
 }
 // --- Advanced Gold Calculator ---
 function calculateAdvancedGoldRequirements() {
@@ -917,3 +916,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   updateMultiplierRecommendation("--");
 });
+
+
