@@ -91,7 +91,16 @@
   </div>
 
   <div class="title">Joyland Adventure Predictor Simulator</div>
-
+<!-- Prediction Display Section - Add this above the GIF container -->
+<div class="prediction-display" style="text-align: center; margin-bottom: 20px; padding: 15px; background: white; border: 2px solid #3a7bd5; border-radius: 8px;">
+  <div style="font-weight: bold; margin-bottom: 10px; color: #3a7bd5;">Next Encounter Predictions</div>
+  <div id="predictionPercentages" style="margin-bottom: 15px;">
+    <!-- JavaScript will populate this with percentages -->
+  </div>
+  <div style="font-weight: bold; color: #d35400;">
+    Multiplier Recommendation: <span id="multiplierRecommendation">--</span>
+  </div>
+</div>
   <div class="gif-container">
     <img id="predictionGif" src="uncertain.gif" alt="Prediction" style="width: 200px; height: 200px;">
   </div>
@@ -139,13 +148,13 @@
     <div id="gcPower"></div>
   </div>
 
-  <div style="text-align:center;">
-    <input type="checkbox" id="showSummary">
-    <label for="showSummary" style="display:inline-block; max-width:300px; line-height:1.2;">
-      Do you have a session saved already?<br>
-      (Check to view/import/export your session data)
-    </label>
-  </div>
+<div style="text-align:center;">
+  <input type="checkbox" id="showSummary" onchange="toggleSummarySection()">
+  <label for="showSummary" style="display:inline-block; max-width:300px; line-height:1.2;">
+    Do you have a session saved already?<br>
+    (Check to view/import/export your session data)
+  </label>
+</div>
 
   <div id="summarySection">
     <div id="summaryOutput" style="margin:10px 0;"></div>
