@@ -879,3 +879,17 @@ function getEncounterDisplayName(symbol) {
   };
   return names[symbol] || symbol;
 }
+
+// Add this to your existing initialization
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the prediction display
+  updatePredictionDisplay({
+    "Normal": "0%",
+    "Choose 1": "0%", 
+    "Devil": "0%",
+    "Monster": "0%",
+    "Gold Chest": "0%",
+    "Jackpot": "0%"
+  });
+  updateMultiplierRecommendation("--");
+});
