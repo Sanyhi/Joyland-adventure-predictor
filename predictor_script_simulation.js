@@ -84,17 +84,44 @@ function getPatternProbabilities(records) {
   const symbols = records.map(r => r.symbol);
   const totalSteps = symbols.length;
   
-  // Simple approach - just use all patterns for now to test
-  const matches = Object.entries(patterns).filter(([_, seq]) =>
-    symbols.every((s, i) => seq[i] === s)
-  );
+  console.log('=== PATTERN ANALYSIS ===');
+  console.log('Total steps:', totalSteps);
+  console.log('Current symbols:', symbols);
   
-  console.log('Simple match - Patterns found:', matches.length);
+  // Calculate current cycle and position
+  const currentCycle = Math.floor(totalSteps / 13);
+  const positionInCycle = totalSteps % 13;
+  
+  console.log('Current cycle:', currentCycle);
+  console.log('Position in cycle:', positionInCycle);
+  
+  // If we've completed a full 13-step cycle, we should be starting a new one
+  if (positionInCycle === 0 && totalSteps > 0) {
+    console.log('🎯 COMPLETED CYCLE - STARTING NEW CYCLE');
+  }
+  
+  // Get the symbols from the CURRENT CYCLE only
+  const currentCycleSymbols = symbols.slice(-positionInCycle);
+  console.log('Current cycle symbols:', currentCycleSymbols);
+  
+  // Find which patterns match our current cycle so far
+  const matches = Object.entries(patterns).filter(([patternName, patternSequence]) => {
+    // Check if the beginning of this pattern matches our current cycle
+    return currentCycleSymbols.every((symbol, index) => 
+      patternSequence[index] === symbol
+    );
+  });
+  
+  console.log('Matching patterns:', matches.map(([name]) => name));
   
   const nextCounts = {};
-  matches.forEach(([_, seq]) => {
-    const next = seq[symbols.length];
-    if (next) nextCounts[next] = (nextCounts[next] || 0) + 1;
+  matches.forEach(([patternName, patternSequence]) => {
+    // Get the next symbol from this pattern at our current position
+    if (positionInCycle < patternSequence.length) {
+      const nextSymbol = patternSequence[positionInCycle];
+      nextCounts[nextSymbol] = (nextCounts[nextSymbol] || 0) + 1;
+      console.log(`Pattern ${patternName} predicts: ${nextSymbol} at position ${positionInCycle}`);
+    }
   });
   
   const total = matches.length;
@@ -102,6 +129,12 @@ function getPatternProbabilities(records) {
   for (const [sym, count] of Object.entries(nextCounts)) {
     probabilities[sym] = count / total;
   }
+  
+  console.log('Final probabilities:', probabilities);
+  console.log('=====================');
+  
+  return { probabilities, total };
+}
   
   return { probabilities, total };
 }
