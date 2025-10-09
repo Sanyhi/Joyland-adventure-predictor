@@ -848,3 +848,34 @@ function calculateRealPercentages() {
 // Example based on your pattern:
 // If current pattern is "Normal" -> possible next: ["Normal", "Normal", "Choose 1"]
 // Then percentages would be: Normal: 66%, Choose 1: 33%
+
+function updatePredictionDisplay(predictions) {
+  const container = document.getElementById("predictionPercentages");
+  if (!container) return;
+  
+  let html = '';
+  for (const [encounter, percentage] of Object.entries(predictions)) {
+    const displayName = getEncounterDisplayName(encounter);
+    html += `<div style="display: inline-block; margin: 0 10px;">${displayName}: ${percentage}</div>`;
+  }
+  container.innerHTML = html || '<div>No pattern data</div>';
+}
+
+function updateMultiplierRecommendation(recommendation) {
+  const element = document.getElementById("multiplierRecommendation");
+  if (element) {
+    element.textContent = recommendation;
+  }
+}
+
+function getEncounterDisplayName(symbol) {
+  const names = {
+    "x": "Normal",
+    "D": "Choose 1", 
+    "f": "Devil",
+    "F": "Monster",
+    "t": "Gold Chest",
+    "T": "Jackpot"
+  };
+  return names[symbol] || symbol;
+}
