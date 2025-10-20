@@ -1,10 +1,10 @@
-// Pattern Definitions
-const patterns = {
-  P1: "xDxfxxDtxDxfT",
-  P2: "xxFxDtxxDTDxf", 
-  P3: "xxDtxxFxDTxfD",
-  P4: "xxtxDxFxDxDFT"
-};
+function getPatternProbabilities(records, usedPatterns = []) {
+  const patterns = {
+    P1: "xDxfxxDtxDxfT",
+    P2: "xxFxDtxxDTDxf",
+    P3: "xxDtxxFxDTxfD",
+    P4: "xxtxDxFxDxDFT"
+  };
 
 const encounterValues = {
   x: 250,
@@ -80,64 +80,39 @@ function expectedValue(symbol, riskLevel) {
   return 0;
 }
 
-function getPatternProbabilities(records) {
-  const symbols = records.map(r => r.symbol);
-  const totalSteps = symbols.length;
-  
-  console.log('=== PATTERN ANALYSIS ===');
-  console.log('Total steps:', totalSteps);
-  console.log('Current symbols:', symbols);
-  
-  // Calculate current cycle and position
-  const currentCycle = Math.floor(totalSteps / 13);
-  const positionInCycle = totalSteps % 13;
-  
-  console.log('Current cycle:', currentCycle);
-  console.log('Position in cycle:', positionInCycle);
-  
-  // If we've completed a full 13-step cycle, we should be starting a new one
-  if (positionInCycle === 0 && totalSteps > 0) {
-    console.log('🎯 COMPLETED CYCLE - STARTING NEW CYCLE');
-  }
-  
-  // Get the symbols from the CURRENT CYCLE only
-  const currentCycleSymbols = symbols.slice(-positionInCycle);
-  console.log('Current cycle symbols:', currentCycleSymbols);
-  
-  // Find which patterns match our current cycle so far
-  const matches = Object.entries(patterns).filter(([patternName, patternSequence]) => {
-    // Check if the beginning of this pattern matches our current cycle
-    return currentCycleSymbols.every((symbol, index) => 
-      patternSequence[index] === symbol
-    );
-  });
-  
-  console.log('Matching patterns:', matches.map(([name]) => name));
-  
+const symbols = records.map(r => r.symbol);
+  const positionInCycle = symbols.length % 13;
+
+  // Determine which patterns are still valid
+  const validPatterns = Object.entries(patterns)
+    .filter(([name, sequence]) => {
+      if (usedPatterns.includes(name)) return false;
+      for (let i = 0; i < positionInCycle; i++) {
+        if (sequence[i] !== symbols[symbols.length - positionInCycle + i]) {
+          return false;
+        }
+      }
+      return true;
+    });
+
+  // Count next symbol predictions
   const nextCounts = {};
-  matches.forEach(([patternName, patternSequence]) => {
-    // Get the next symbol from this pattern at our current position
-    if (positionInCycle < patternSequence.length) {
-      const nextSymbol = patternSequence[positionInCycle];
+  validPatterns.forEach(([_, sequence]) => {
+    const nextSymbol = sequence[positionInCycle];
+    if (nextSymbol) {
       nextCounts[nextSymbol] = (nextCounts[nextSymbol] || 0) + 1;
-      console.log(`Pattern ${patternName} predicts: ${nextSymbol} at position ${positionInCycle}`);
     }
   });
-  
-  const total = matches.length;
+
+  const total = validPatterns.length;
   const probabilities = {};
-  for (const [sym, count] of Object.entries(nextCounts)) {
-    probabilities[sym] = count / total;
+  for (const [symbol, count] of Object.entries(nextCounts)) {
+    probabilities[symbol] = count / total;
   }
-  
-  console.log('Final probabilities:', probabilities);
-  console.log('=====================');
-  
+
   return { probabilities, total };
 }
-  
-  return { probabilities, total };
-}
+
 // --- Advanced Gold Calculator ---
 function calculateAdvancedGoldRequirements() {
   const simData = loadSimulationData();
