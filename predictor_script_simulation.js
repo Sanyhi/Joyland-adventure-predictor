@@ -392,9 +392,14 @@ function updateUI() {
   document.getElementById("gcPower").textContent = `You can purchase ${purchasable} compasses with your gold. You get 45 free per event.`;
 }
 
-window.recordEncounter = function () {
-  console.log("✅ Record button clicked");
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("recordBtn").addEventListener("click", recordEncounter);
+});
+
+function recordEncounter() {
   try {
+    console.log("✅ Record button clicked");
+
     const type = document.getElementById("encounterType").value;
     const symbolMap = {
       "Normal encounter": "x",
@@ -445,7 +450,7 @@ window.recordEncounter = function () {
     console.error("Record button error:", err);
     alert("Failed to record encounter. Check console for details.");
   }
-};
+}
 
 // --- Import/Export and Utility Functions ---
 function exportData() {
