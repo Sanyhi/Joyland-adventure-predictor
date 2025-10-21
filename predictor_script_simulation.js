@@ -393,6 +393,7 @@ function updateUI() {
 }
 
 window.recordEncounter = function () {
+  console.log("✅ Record button clicked");
   try {
     const type = document.getElementById("encounterType").value;
     const symbolMap = {
