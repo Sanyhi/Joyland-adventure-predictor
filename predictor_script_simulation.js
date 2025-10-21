@@ -389,59 +389,59 @@ function updateUI() {
   document.getElementById("gcPower").textContent = `You can purchase ${purchasable} compasses with your gold. You get 45 free per event.`;
 }
 
-window.recordEncounter = function() {
-  
-try {
+window.recordEncounter = function () {
+  try {
     const type = document.getElementById("encounterType").value;
+    const symbolMap = {
+      "Normal encounter": "x",
+      "Choose 1 encounter": "D",
+      "Little devil (puzzle) encounter": "f",
+      "Monster (Axe throw) encounter": "F",
+      "Treasure chest (gold)": "t",
+      "Treasure chest (jackpot)": "T"
+    };
+    const symbol = symbolMap[type] || "?";
 
-  const type = document.getElementById("encounterType").value;
-  const symbolMap = {
-    "Normal encounter": "x",
-    "Choose 1 encounter": "D",
-    "Little devil (puzzle) encounter": "f",
-    "Monster (Axe throw) encounter": "F",
-    "Treasure chest (gold)": "t",
-    "Treasure chest (jackpot)": "T"
-  };
-  const symbol = symbolMap[type] || "?";
+    const records = getRecords();
+    let multiplier = records.length >= 10 ? document.getElementById("multiplier").value : "1x1m";
 
-  const records = getRecords();
-  let multiplier = records.length >= 10 ? document.getElementById("multiplier").value : "1x1m";
-  
-  const simData = loadSimulationData();
-  const isGoldFocus = simData.priority && simData.priority.includes("Gold");
-  
-  if (isGoldFocus && symbol !== "t" && records.length >= 10) {
-    multiplier = "1x1m";
-    document.getElementById("multiplier").value = "1x1m";
-  }
-  
-  const amount = ["t", "T"].includes(symbol) ? parseInt(document.getElementById("amount").value || "0") : null;
-  const multiplierValue = parseInt(multiplier.split('x')[0]) || 1;
+    const simData = loadSimulationData();
+    const isGoldFocus = simData.priority && simData.priority.includes("Gold");
 
-  let finalAmount = amount;
-  if (["x", "D", "f", "F"].includes(symbol)) {
-    const baseValue = encounterValues[symbol];
-    finalAmount = baseValue * multiplierValue;
-  } else if (["t", "T"].includes(symbol) && amount) {
-    finalAmount = amount * multiplierValue;
-  }
+    if (isGoldFocus && symbol !== "t" && records.length >= 10) {
+      multiplier = "1x1m";
+      document.getElementById("multiplier").value = "1x1m";
+    }
 
-  records.push({ 
-    type, 
-    symbol, 
-    multiplier, 
-    multiplierValue,
-    amount: finalAmount 
-  });
-  saveRecords(records);
-  updateUI();
-}
+    const amount = ["t", "T"].includes(symbol)
+      ? parseInt(document.getElementById("amount").value || "0")
+      : null;
 
-catch (err) {
+    const multiplierValue = parseInt(multiplier.split("x")[0]) || 1;
+
+    let finalAmount = amount;
+    if (["x", "D", "f", "F"].includes(symbol)) {
+      const baseValue = encounterValues[symbol];
+      finalAmount = baseValue * multiplierValue;
+    } else if (["t", "T"].includes(symbol) && amount) {
+      finalAmount = amount * multiplierValue;
+    }
+
+    records.push({
+      type,
+      symbol,
+      multiplier,
+      multiplierValue,
+      amount: finalAmount
+    });
+
+    saveRecords(records);
+    updateUI();
+  } catch (err) {
     console.error("Record button error:", err);
     alert("Failed to record encounter. Check console for details.");
-}
+  }
+};
 
 // --- Import/Export and Utility Functions ---
 function exportData() {
