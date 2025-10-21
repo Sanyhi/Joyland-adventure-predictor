@@ -287,12 +287,15 @@ function showPrediction(records) {
   const gifElement = document.getElementById("predictionGif");
   gifElement.src = gif;
   
-  const certaintyPercent = certain ? 100 : (total > 0 ? Math.max(...Object.values(probabilities)) * 100 : 0);
-  document.getElementById("certaintyInfo").textContent = `Prediction Certainty: ${certaintyPercent.toFixed(1)}%`;
- const predictionDisplay = {};
+
+  const usedPatterns = determineUsedPatterns(records); // You need to implement this
+  const { probabilities, total } = getPatternProbabilities(records, usedPatterns);
+
+  const predictionDisplay = {};
   Object.entries(probabilities).forEach(([sym, prob]) => {
-    predictionDisplay[sym] = `${(prob * 100).toFixed(1)}%`;
+    predictionDisplay[getEncounterDisplayName(sym)] = `${(prob * 100).toFixed(1)}%`;
   });
+
   
   // Update the new frontend display
   updatePredictionDisplay(predictionDisplay);
